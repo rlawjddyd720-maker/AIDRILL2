@@ -336,8 +336,8 @@
     const w = window.open('', '_blank');
     if (!w) { P.toast('팝업이 차단되어 인쇄 창을 열지 못했습니다.'); return; }
     w.document.write(`<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>자율성과지표 요약 보고서 | 경북과학대학교</title>
-      <style>body{font-family:'IBM Plex Sans KR','Malgun Gothic',sans-serif;max-width:720px;margin:32px auto;padding:0 24px;color:#1A2233;line-height:1.7;font-size:14px}
-      h1{font-size:22px;margin:0 0 4px}.m{color:#4A5568;font-size:13px;margin:0 0 20px}h3{font-size:16px;margin:20px 0 6px;border-bottom:2px solid #F5B700;display:inline-block}ul{padding-left:20px}</style></head>
+      <style>body{border-top:6px solid #0081FD;font-family:'IBM Plex Sans KR','Malgun Gothic',sans-serif;max-width:720px;margin:32px auto;padding:0 24px;color:#1A2233;line-height:1.7;font-size:14px}
+      h1{font-size:22px;margin:0 0 4px}.m{color:#4A5568;font-size:13px;margin:0 0 20px}h3{font-size:16px;margin:20px 0 6px;border-bottom:3px solid #FFE500;display:inline-block}ul{padding-left:20px}</style></head>
       <body><h1>${P.esc(P.univName(d))} 전문대학 혁신지원사업 자율성과지표 요약 보고서</h1>
       <p class="m">${P.esc($('#reportMeta').textContent)} · ${P.esc($('#reportStamp').textContent)}</p>${mdToHtml(r.shownText)}</body></html>`);
     w.document.close();

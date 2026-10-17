@@ -9,8 +9,16 @@
 <style>
 :root {
   color-scheme: light;
-  --navy: #1E4BA0;
-  --gold: #F5B700;
+  /* 경북과학대학교 로고 색상 */
+  --logo-blue: #0081FD;
+  --logo-yellow: #FFE500;
+  --logo-black: #000000;
+  --navy: var(--logo-blue);
+  --gold: var(--logo-yellow);
+  --blue-text: #0067CA; /* 흰 바탕 글자용(로고 파랑과 같은 색조, 대비 확보) */
+  --on-blue: #000000;
+  --header-fg: #000000;
+  --header-sub: #333333;
   --bg: #F3F5F8;
   --surface: #FFFFFF;
   --sunken: #F6F8FB;
@@ -23,34 +31,37 @@
   --chip: #EEF1F6;
   --track: #E6EAF0;
   --input: #CBD3DF;
-  --header: var(--navy);
-  --link: var(--navy);
+  --header: #FFFFFF;
+  --link: var(--blue-text);
   --flag: #9AA3B2;
   --green: #1F8A4C;
   --orange: #E07B24;
   --red: #D23B3B;
-  --on-gold: #1A2233;
-  --focus: #F5B700;
+  --on-gold: #000000;
+  --focus: #0067CA;
   --radius: 12px;
   --font: 'IBM Plex Sans KR', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0D1320;
-  --surface: #151D2C;
-  --sunken: #1A2333;
-  --border: #263247;
-  --row: #202A3C;
+  --bg: #0B0B0C;
+  --surface: #161618;
+  --sunken: #1D1D20;
+  --border: #2E2E33;
+  --row: #26262A;
   --text: #E4E9F2;
   --strong: #F4F6FB;
   --body: #C8D0DD;
   --muted: #9AA5B8;
-  --chip: #212C40;
-  --track: #263247;
-  --input: #34425C;
-  --header: #111C33;
-  --link: #8DB2F5;
-  --flag: #7D889C;
+  --chip: #27272B;
+  --track: #2E2E33;
+  --input: #3C3C42;
+  --header: #000000;
+  --header-fg: #FFFFFF;
+  --header-sub: #CCCCCC;
+  --link: #4DA6FE;
+  --focus: #FFE500;
+  --flag: #85858D;
   --green: #4CC27E;
   --orange: #F5A05A;
   --red: #F07272;
@@ -77,34 +88,38 @@ h1, h2, h3 { margin: 0; color: var(--strong); }
 @media (max-width: 640px) { .wrap { padding-left: 16px; padding-right: 16px; } }
 
 /* 상단 바 */
-.topbar { background: var(--header); color: #fff; }
+.topbar { position: relative; background: var(--header); color: var(--header-fg); }
+/* 로고의 노랑·흰색·파랑 띠를 헤더 아래에 표시 */
+.topbar::after { content: ""; display: block; height: 6px; border-top: 2px solid #000;
+  background: linear-gradient(to right, var(--logo-yellow) 0 38%, #FFFFFF 38% 52%, var(--logo-blue) 52% 100%); }
 .topbar-in { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; min-height: 68px; padding-top: 8px; padding-bottom: 8px; }
 .brand { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; min-width: 0; }
-.brand-logo { flex: none; display: flex; align-items: center; height: 44px; padding: 4px 10px; border-radius: 8px; background: #fff; }
-.brand-logo img { display: block; height: 36px; width: auto; max-width: 180px; object-fit: contain; }
+.brand-logo { flex: none; display: flex; align-items: center; height: 48px; padding: 0; border-radius: 8px; background: #fff; }
+.brand-logo img { display: block; height: 46px; width: auto; max-width: 180px; object-fit: contain; }
 .brand-logo .brand-mark { display: none; }
 .brand-logo.no-logo { padding: 0; background: none; }
 .brand-logo.no-logo img { display: none; }
 .brand-logo.no-logo .brand-mark { display: grid; }
-@media (max-width: 640px) { .brand-logo img { height: 28px; max-width: 120px; } .brand-title { font-size: 14px; } }
-.brand-mark { width: 36px; height: 36px; border-radius: 8px; background: var(--gold); color: var(--navy); display: grid; place-items: center; }
+@media (max-width: 640px) { .brand-logo img { height: 36px; max-width: 120px; } .brand-title { font-size: 14px; } }
+.brand-mark { width: 36px; height: 36px; border-radius: 8px; background: var(--gold); color: #000; border: 2px solid #000; display: grid; place-items: center; }
 .brand-text { display: flex; flex-direction: column; }
-.brand-sub { font-size: 12px; color: #C5D0E2; }
+.brand-sub { font-size: 12px; color: var(--header-sub); }
 .brand-title { font-size: 16px; font-weight: 600; }
 .top-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-.sync { font-size: 13px; color: #DCE4F2; padding: 0 6px; }
+.sync { font-size: 13px; color: var(--header-sub); padding: 0 6px; }
 .sync::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--flag); margin-right: 6px; vertical-align: 1px; }
 .sync.ok::before { background: #4CC27E; }
 .sync.err::before { background: #F07272; }
-.btn-ghost { height: 44px; padding: 0 14px; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; background: rgba(255,255,255,.08); color: #fff; font-size: 14px; font-weight: 500; }
-.btn-report { height: 44px; padding: 0 16px; border: 1px solid rgba(255,255,255,.5); border-radius: 8px; background: #fff; color: var(--navy); font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
-:root[data-theme="dark"] .btn-report { background: #1E2A44; color: #DCE6FA; border-color: #34425C; }
-.btn-gold { height: 44px; padding: 0 18px; border: 0; border-radius: 8px; background: var(--gold); color: var(--on-gold); font-size: 15px; font-weight: 600; }
+.btn-ghost { height: 44px; padding: 0 14px; border: 1.5px solid var(--header-fg); border-radius: 999px; background: transparent; color: var(--header-fg); font-size: 14px; font-weight: 500; }
+.btn-report { height: 44px; padding: 0 16px; border: 2px solid #000; border-radius: 8px; background: var(--logo-blue); color: #000; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+:root[data-theme="dark"] .btn-report, :root[data-theme="dark"] .btn-gold { border-color: #FFFFFF; }
+:root[data-theme="dark"] .brand-logo { padding: 2px 4px; }
+.btn-gold { height: 44px; padding: 0 18px; border: 2px solid #000; border-radius: 8px; background: var(--gold); color: var(--on-gold); font-size: 15px; font-weight: 600; }
 
 /* 공통 버튼 */
 .btn-line { height: 44px; padding: 0 16px; border: 1px solid var(--input); border-radius: 8px; background: var(--surface); color: var(--text); font-size: 14px; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; }
-.btn-primary { height: 44px; padding: 0 20px; border: 0; border-radius: 8px; background: var(--navy); color: #fff; font-size: 15px; font-weight: 600; }
-:root[data-theme="dark"] .btn-primary { background: #5B8DEF; color: #0D1320; }
+.btn-primary { height: 44px; padding: 0 20px; border: 0; border-radius: 8px; background: #000; color: #fff; font-size: 15px; font-weight: 600; }
+:root[data-theme="dark"] .btn-primary { background: var(--logo-blue); color: #000; }
 .btn-link { border: 0; background: none; padding: 4px; color: var(--link); font-size: 13px; text-decoration: underline; }
 .icon-btn { width: 44px; height: 44px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); display: grid; place-items: center; }
 
@@ -113,13 +128,14 @@ main { flex: 1; display: flex; flex-direction: column; gap: 28px; padding-top: 3
 .error-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
 
 /* 타이틀 */
-.page-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px; }
+/* 제목·날짜 아래에 버튼 줄이 항상 오도록 세로 배치 */
+.page-head { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
 .page-head .eyebrow { font-size: 14px; color: var(--muted); font-weight: 500; }
 .page-head h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; margin: 6px 0; }
 .page-head p { margin: 0; font-size: 15px; color: var(--muted); }
 .page-head .now { font-weight: 600; color: var(--body); }
 .page-head .now::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); margin-right: 6px; vertical-align: 1px; }
-.head-ctrls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.head-ctrls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; width: 100%; }
 .seg { display: inline-flex; padding: 4px; gap: 4px; border-radius: 10px; background: var(--chip); }
 .seg button { height: 40px; padding: 0 14px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); font-size: 14px; font-weight: 600; }
 .seg button[aria-pressed="true"] { background: var(--surface); color: var(--strong); box-shadow: 0 1px 2px rgba(17,24,39,.12); }
@@ -142,8 +158,8 @@ main { flex: 1; display: flex; flex-direction: column; gap: 28px; padding-top: 3
 .period-text b { color: var(--strong); }
 .period-text span { color: var(--muted); }
 .bar { position: relative; height: 10px; background: var(--track); border-radius: 999px; }
-.bar > .fill { height: 100%; border-radius: 999px; background: #A9C1EC; }
-:root[data-theme="dark"] .bar > .fill { background: #3A5A99; }
+.bar > .fill { height: 100%; border-radius: 999px; background: #99CDFE; }
+:root[data-theme="dark"] .bar > .fill { background: #00509E; }
 .bar > .mark { position: absolute; top: -4px; width: 2px; height: 18px; background: var(--strong); }
 .pills { display: flex; flex-wrap: wrap; gap: 8px; }
 .pill { font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px; }
@@ -158,8 +174,8 @@ main { flex: 1; display: flex; flex-direction: column; gap: 28px; padding-top: 3
 .donut .d-detail { font-size: 13px; color: var(--muted); }
 .chip { display: inline-block; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: var(--chip); color: var(--body); white-space: nowrap; }
 .chip.flag { border: 1px dashed var(--flag); }
-.chip.ok { background: var(--navy); color: #fff; }
-:root[data-theme="dark"] .chip.ok { background: #5B8DEF; color: #0D1320; }
+.chip.ok { background: var(--logo-blue); color: #000; }
+
 .chip.miss { background: var(--gold); color: var(--on-gold); }
 
 /* 표 */
@@ -210,8 +226,8 @@ tr.inline-row > td { padding: 0 14px 16px; background: var(--sunken); text-align
 .issue.done .it { text-decoration: line-through; color: var(--muted); }
 .lv { flex: none; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: var(--chip); color: var(--body); }
 .lv.긴급 { background: var(--gold); color: var(--on-gold); }
-.lv.확인 { background: var(--navy); color: #fff; }
-:root[data-theme="dark"] .lv.확인 { background: #5B8DEF; color: #0D1320; }
+.lv.확인 { background: var(--logo-blue); color: #000; }
+
 .sched li { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--row); }
 .dday { width: 64px; flex: none; display: grid; place-items: center; border-radius: 8px; background: var(--chip); color: var(--link); font-weight: 700; font-size: 14px; padding: 10px 0; }
 .dday.soon { background: var(--gold); color: var(--on-gold); }
@@ -1553,8 +1569,8 @@ window.PMS_SEED = {"version":1,"updatedAt":"2026-10-16T09:00:00+09:00","updatedB
     const w = window.open('', '_blank');
     if (!w) { P.toast('팝업이 차단되어 인쇄 창을 열지 못했습니다.'); return; }
     w.document.write(`<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>자율성과지표 요약 보고서 | 경북과학대학교</title>
-      <style>body{font-family:'IBM Plex Sans KR','Malgun Gothic',sans-serif;max-width:720px;margin:32px auto;padding:0 24px;color:#1A2233;line-height:1.7;font-size:14px}
-      h1{font-size:22px;margin:0 0 4px}.m{color:#4A5568;font-size:13px;margin:0 0 20px}h3{font-size:16px;margin:20px 0 6px;border-bottom:2px solid #F5B700;display:inline-block}ul{padding-left:20px}</style></head>
+      <style>body{border-top:6px solid #0081FD;font-family:'IBM Plex Sans KR','Malgun Gothic',sans-serif;max-width:720px;margin:32px auto;padding:0 24px;color:#1A2233;line-height:1.7;font-size:14px}
+      h1{font-size:22px;margin:0 0 4px}.m{color:#4A5568;font-size:13px;margin:0 0 20px}h3{font-size:16px;margin:20px 0 6px;border-bottom:3px solid #FFE500;display:inline-block}ul{padding-left:20px}</style></head>
       <body><h1>${P.esc(P.univName(d))} 전문대학 혁신지원사업 자율성과지표 요약 보고서</h1>
       <p class="m">${P.esc($('#reportMeta').textContent)} · ${P.esc($('#reportStamp').textContent)}</p>${mdToHtml(r.shownText)}</body></html>`);
     w.document.close();
