@@ -1,0 +1,16 @@
+{
+  "name": "ai-pms",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI 사업단 자율성과지표 성과관리 시스템 (Netlify)",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

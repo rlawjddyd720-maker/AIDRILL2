@@ -1,0 +1,1611 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>전문대학 혁신지원사업 성과관리 시스템 | 경북과학대학교</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --navy: #1E4BA0;
+  --gold: #F5B700;
+  --bg: #F3F5F8;
+  --surface: #FFFFFF;
+  --sunken: #F6F8FB;
+  --border: #E1E6EE;
+  --row: #EDF0F5;
+  --text: #1A2233;
+  --strong: #111827;
+  --body: #374151;
+  --muted: #4A5568;
+  --chip: #EEF1F6;
+  --track: #E6EAF0;
+  --input: #CBD3DF;
+  --header: var(--navy);
+  --link: var(--navy);
+  --flag: #9AA3B2;
+  --green: #1F8A4C;
+  --orange: #E07B24;
+  --red: #D23B3B;
+  --on-gold: #1A2233;
+  --focus: #F5B700;
+  --radius: 12px;
+  --font: 'IBM Plex Sans KR', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0D1320;
+  --surface: #151D2C;
+  --sunken: #1A2333;
+  --border: #263247;
+  --row: #202A3C;
+  --text: #E4E9F2;
+  --strong: #F4F6FB;
+  --body: #C8D0DD;
+  --muted: #9AA5B8;
+  --chip: #212C40;
+  --track: #263247;
+  --input: #34425C;
+  --header: #111C33;
+  --link: #8DB2F5;
+  --flag: #7D889C;
+  --green: #4CC27E;
+  --orange: #F5A05A;
+  --red: #F07272;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+a { color: var(--link); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+button { font-family: inherit; cursor: pointer; }
+h1, h2, h3 { margin: 0; color: var(--strong); }
+.wrap { width: 100%; max-width: 1280px; margin: 0 auto; padding-left: 32px; padding-right: 32px; }
+@media (max-width: 640px) { .wrap { padding-left: 16px; padding-right: 16px; } }
+
+/* 상단 바 */
+.topbar { background: var(--header); color: #fff; }
+.topbar-in { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; min-height: 68px; padding-top: 8px; padding-bottom: 8px; }
+.brand { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; min-width: 0; }
+.brand-logo { flex: none; display: flex; align-items: center; height: 44px; padding: 4px 10px; border-radius: 8px; background: #fff; }
+.brand-logo img { display: block; height: 36px; width: auto; max-width: 180px; object-fit: contain; }
+.brand-logo .brand-mark { display: none; }
+.brand-logo.no-logo { padding: 0; background: none; }
+.brand-logo.no-logo img { display: none; }
+.brand-logo.no-logo .brand-mark { display: grid; }
+@media (max-width: 640px) { .brand-logo img { height: 28px; max-width: 120px; } .brand-title { font-size: 14px; } }
+.brand-mark { width: 36px; height: 36px; border-radius: 8px; background: var(--gold); color: var(--navy); display: grid; place-items: center; }
+.brand-text { display: flex; flex-direction: column; }
+.brand-sub { font-size: 12px; color: #C5D0E2; }
+.brand-title { font-size: 16px; font-weight: 600; }
+.top-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.sync { font-size: 13px; color: #DCE4F2; padding: 0 6px; }
+.sync::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--flag); margin-right: 6px; vertical-align: 1px; }
+.sync.ok::before { background: #4CC27E; }
+.sync.err::before { background: #F07272; }
+.btn-ghost { height: 44px; padding: 0 14px; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; background: rgba(255,255,255,.08); color: #fff; font-size: 14px; font-weight: 500; }
+.btn-report { height: 44px; padding: 0 16px; border: 1px solid rgba(255,255,255,.5); border-radius: 8px; background: #fff; color: var(--navy); font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+:root[data-theme="dark"] .btn-report { background: #1E2A44; color: #DCE6FA; border-color: #34425C; }
+.btn-gold { height: 44px; padding: 0 18px; border: 0; border-radius: 8px; background: var(--gold); color: var(--on-gold); font-size: 15px; font-weight: 600; }
+
+/* 공통 버튼 */
+.btn-line { height: 44px; padding: 0 16px; border: 1px solid var(--input); border-radius: 8px; background: var(--surface); color: var(--text); font-size: 14px; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; }
+.btn-primary { height: 44px; padding: 0 20px; border: 0; border-radius: 8px; background: var(--navy); color: #fff; font-size: 15px; font-weight: 600; }
+:root[data-theme="dark"] .btn-primary { background: #5B8DEF; color: #0D1320; }
+.btn-link { border: 0; background: none; padding: 4px; color: var(--link); font-size: 13px; text-decoration: underline; }
+.icon-btn { width: 44px; height: 44px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); display: grid; place-items: center; }
+
+main { flex: 1; display: flex; flex-direction: column; gap: 28px; padding-top: 36px; padding-bottom: 64px; }
+.loading, .error-box { padding: 48px; text-align: center; color: var(--muted); }
+.error-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+
+/* 타이틀 */
+.page-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px; }
+.page-head .eyebrow { font-size: 14px; color: var(--muted); font-weight: 500; }
+.page-head h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; margin: 6px 0; }
+.page-head p { margin: 0; font-size: 15px; color: var(--muted); }
+.page-head .now { font-weight: 600; color: var(--body); }
+.page-head .now::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); margin-right: 6px; vertical-align: 1px; }
+.head-ctrls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.seg { display: inline-flex; padding: 4px; gap: 4px; border-radius: 10px; background: var(--chip); }
+.seg button { height: 40px; padding: 0 14px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); font-size: 14px; font-weight: 600; }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--strong); box-shadow: 0 1px 2px rgba(17,24,39,.12); }
+
+/* 카드 */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 20px; }
+@media (max-width: 640px) { .card { padding: 20px; } .page-head h1 { font-size: 24px; } }
+.card-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.card-head h2 { font-size: 19px; font-weight: 700; }
+.card-head p { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--body); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.legend i.tick { width: 2px; height: 12px; border-radius: 0; background: var(--strong); }
+
+/* 기간 바 */
+.card.period { flex-direction: row; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between; padding: 20px 24px; }
+.period-main { flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+.period-text { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 14px; }
+.period-text b { color: var(--strong); }
+.period-text span { color: var(--muted); }
+.bar { position: relative; height: 10px; background: var(--track); border-radius: 999px; }
+.bar > .fill { height: 100%; border-radius: 999px; background: #A9C1EC; }
+:root[data-theme="dark"] .bar > .fill { background: #3A5A99; }
+.bar > .mark { position: absolute; top: -4px; width: 2px; height: 18px; background: var(--strong); }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px; }
+
+/* 도넛 */
+.donut-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+.donut-grid.sm { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.donut { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px 8px; border-radius: 12px; background: var(--sunken); text-align: center; }
+.donut svg { display: block; }
+.donut .d-label { font-size: 15px; font-weight: 600; color: var(--strong); }
+.donut-grid.sm .donut .d-label { font-size: 14px; }
+.donut .d-detail { font-size: 13px; color: var(--muted); }
+.chip { display: inline-block; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: var(--chip); color: var(--body); white-space: nowrap; }
+.chip.flag { border: 1px dashed var(--flag); }
+.chip.ok { background: var(--navy); color: #fff; }
+:root[data-theme="dark"] .chip.ok { background: #5B8DEF; color: #0D1320; }
+.chip.miss { background: var(--gold); color: var(--on-gold); }
+
+/* 표 */
+.table-box { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.wide { min-width: 760px; }
+caption { text-align: left; font-size: 14px; font-weight: 600; color: var(--body); padding-bottom: 10px; }
+th, td { padding: 13px 14px; border-bottom: 1px solid var(--row); text-align: right; vertical-align: top; }
+thead th { background: var(--sunken); font-weight: 600; color: var(--body); border-bottom: 1px solid var(--border); white-space: nowrap; }
+th:first-child, td:first-child, th.l, td.l { text-align: left; }
+tbody th { font-weight: 500; color: var(--strong); }
+td.v { color: var(--strong); font-weight: 600; white-space: nowrap; }
+td.r { font-weight: 700; white-space: nowrap; }
+td.note { color: var(--muted); font-size: 13px; text-align: left; min-width: 220px; }
+.w { color: var(--muted); font-weight: 400; font-size: 13px; }
+.memo { margin: 0; font-size: 13px; color: var(--body); background: var(--chip); padding: 12px 14px; border-radius: 8px; }
+.sub-meta { font-size: 13px; color: var(--muted); }
+details.def { font-size: 14px; color: var(--body); }
+details.def summary { cursor: pointer; color: var(--link); font-weight: 600; padding: 6px 0; min-height: 32px; }
+details.def dl { margin: 8px 0 0; display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; }
+details.def dt { color: var(--muted); }
+details.def dd { margin: 0; }
+
+/* 표 안 현재값 수정 */
+.cell-edit { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 4px 10px; margin: -6px -10px -6px 0; border: 1px dashed var(--input); border-radius: 8px; background: transparent; color: var(--strong); font: inherit; font-weight: 600; white-space: nowrap; }
+.cell-edit:hover { border-style: solid; border-color: var(--link); background: var(--sunken); }
+.cell-edit svg { color: var(--link); flex: none; }
+.cell-edit[aria-expanded="true"] { border-style: solid; border-color: var(--link); background: var(--chip); }
+tr.is-editing > * { background: var(--sunken); }
+tr.inline-row > td { padding: 0 14px 16px; background: var(--sunken); text-align: left; }
+.inline-form { display: flex; flex-direction: column; gap: 12px; padding: 16px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+.inline-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.inline-foot .calc { flex: 1 1 220px; }
+.inline-foot .field.inline input { width: 160px; }
+
+/* 2단 */
+.cols { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+.cols > .main-col { flex: 999 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+.cols > aside { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+.badge-count { font-size: 13px; font-weight: 600; background: var(--gold); color: var(--on-gold); padding: 3px 10px; border-radius: 999px; }
+.issue-list, .sched { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.issue { border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; display: flex; gap: 12px; align-items: flex-start; }
+.issue input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--navy); flex: none; }
+.issue label { display: flex; flex-direction: column; gap: 4px; cursor: pointer; flex: 1; min-width: 0; }
+.issue .it { font-size: 14px; font-weight: 600; color: var(--strong); }
+.issue .id { font-size: 13px; color: var(--muted); }
+.issue .io { font-size: 12px; color: var(--body); }
+.issue.done .it { text-decoration: line-through; color: var(--muted); }
+.lv { flex: none; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: var(--chip); color: var(--body); }
+.lv.긴급 { background: var(--gold); color: var(--on-gold); }
+.lv.확인 { background: var(--navy); color: #fff; }
+:root[data-theme="dark"] .lv.확인 { background: #5B8DEF; color: #0D1320; }
+.sched li { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--row); }
+.dday { width: 64px; flex: none; display: grid; place-items: center; border-radius: 8px; background: var(--chip); color: var(--link); font-weight: 700; font-size: 14px; padding: 10px 0; }
+.dday.soon { background: var(--gold); color: var(--on-gold); }
+.sched .st { font-size: 15px; font-weight: 600; color: var(--strong); }
+.sched .sd { font-size: 13px; color: var(--muted); }
+.tools { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* 푸터 */
+.foot { border-top: 1px solid var(--border); background: var(--surface); }
+.foot-in { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 20px; padding-bottom: 20px; font-size: 13px; color: var(--muted); }
+
+/* 요약 보고서 */
+.report-dialog { width: min(820px, calc(100vw - 24px)); }
+.report-wrap { display: flex; flex-direction: column; max-height: calc(100vh - 34px); }
+.report-meta { margin: 4px 0 0; font-size: 13px; color: var(--muted); }
+.report-tabs { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 24px 0; }
+.report-note { font-size: 13px; color: var(--muted); }
+.report-body { overflow-y: auto; padding: 8px 24px 24px; font-size: 15px; line-height: 1.7; color: var(--body); }
+.report-body h3 { font-size: 16px; margin: 20px 0 8px; padding-bottom: 6px; border-bottom: 2px solid var(--gold); display: inline-block; }
+.report-body p { margin: 0 0 10px; }
+.report-body ul { margin: 0 0 8px; padding-left: 20px; }
+.report-body li { margin: 4px 0; }
+.report-body strong { color: var(--strong); }
+.hist-list { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.hist { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 10px; }
+.hist.cur { background: var(--chip); }
+.hist .btn-line { height: 40px; }
+.report-empty { padding: 32px 8px; text-align: center; color: var(--muted); display: flex; flex-direction: column; gap: 14px; align-items: center; }
+.report-warn { margin: 12px 0 0; padding: 10px 14px; border-radius: 8px; background: var(--chip); font-size: 13px; color: var(--body); }
+.spinner { width: 28px; height: 28px; border: 3px solid var(--track); border-top-color: var(--navy); border-radius: 50%; animation: spin 0.9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 3s; } }
+@media (max-width: 640px) { .btn-report { padding: 0 12px; font-size: 14px; } }
+
+/* 입력 대화상자 */
+dialog { width: min(920px, calc(100vw - 24px)); max-height: calc(100vh - 32px); padding: 0; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: var(--text); }
+dialog::backdrop { background: rgba(13,19,32,.55); }
+.edit-form { display: flex; flex-direction: column; max-height: calc(100vh - 34px); }
+.edit-head, .edit-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 24px; border-bottom: 1px solid var(--border); }
+.edit-foot { border-bottom: 0; border-top: 1px solid var(--border); }
+.edit-head h2 { font-size: 19px; }
+.edit-body { overflow-y: auto; padding: 8px 24px 24px; display: flex; flex-direction: column; gap: 8px; }
+.edit-body details { border: 1px solid var(--border); border-radius: 10px; }
+.edit-body summary { padding: 14px 16px; font-weight: 700; color: var(--strong); cursor: pointer; }
+.edit-sub { padding: 16px; border-top: 1px solid var(--row); display: flex; flex-direction: column; gap: 12px; }
+.edit-sub h3 { font-size: 15px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+.edit-sub h3 small { font-size: 13px; color: var(--muted); font-weight: 500; }
+.edit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.field { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--muted); font-weight: 500; }
+.field.inline { flex-direction: row; align-items: center; gap: 10px; }
+.field input, .field select, .field textarea { font: inherit; font-size: 15px; color: var(--text); background: var(--surface); border: 1px solid var(--input); border-radius: 8px; padding: 0 12px; height: 44px; }
+.field textarea { height: auto; min-height: 64px; padding: 10px 12px; resize: vertical; }
+.calc { font-size: 14px; color: var(--body); }
+.calc b { color: var(--strong); }
+.edit-foot-btns { display: flex; gap: 8px; }
+.section-title { font-size: 14px; font-weight: 700; color: var(--body); margin: 16px 0 4px; }
+
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--strong); color: var(--surface); padding: 12px 18px; border-radius: 10px; font-size: 14px; box-shadow: 0 6px 20px rgba(0,0,0,.2); z-index: 50; max-width: calc(100vw - 32px); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .donut circle.arc { transition: stroke-dasharray .5s ease; }
+}
+
+@media print {
+  .topbar .top-actions, .head-ctrls .tools, .issue input, .toast { display: none !important; }
+  body { background: #fff; }
+  .card { break-inside: avoid; border-color: #ccc; }
+  .cols > aside { flex-basis: 100%; }
+}
+
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="./" aria-label="경북과학대학교 전문대학 혁신지원사업 성과관리 시스템 처음 화면">
+      <span class="brand-logo">
+        <img src="logo.png" alt="경북과학대학교" onerror="this.parentNode.classList.add('no-logo')">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg>
+        </span>
+      </span>
+      <span class="brand-text">
+        <span class="brand-sub" id="brandUniv">경북과학대학교</span>
+        <span class="brand-title">전문대학 혁신지원사업 성과관리 시스템</span>
+      </span>
+    </a>
+    <div class="top-actions">
+      <span class="sync" id="syncState" aria-live="polite">연결 중</span>
+      <button type="button" class="btn-ghost" id="themeBtn" aria-pressed="false">다크 모드</button>
+      <button type="button" class="btn-report" id="reportBtn" aria-haspopup="dialog">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg>
+        AI 요약 보고서
+      </button>
+      <button type="button" class="btn-gold" id="editBtn">실적 입력</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="app">
+  <p class="loading">데이터를 불러오는 중입니다.</p>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span id="footSource">출처: 자율성과지표 정의서·1차년도 달성도, 2026학년도 자율성과지표 2분기 현황</span>
+    <span id="footUpdated"></span>
+  </div>
+</footer>
+
+<dialog id="editDialog" aria-labelledby="editTitle">
+  <form method="dialog" id="editForm" class="edit-form">
+    <div class="edit-head">
+      <h2 id="editTitle">2차년도 실적 입력</h2>
+      <button type="button" class="icon-btn" id="editClose" aria-label="닫기">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="edit-body" id="editBody"></div>
+    <div class="edit-foot">
+      <label class="field inline">
+        <span>입력자</span>
+        <input type="text" id="editorName" maxlength="40" placeholder="이름 또는 부서" required>
+      </label>
+      <div class="edit-foot-btns">
+        <button type="button" class="btn-line" id="editCancel">취소</button>
+        <button type="submit" class="btn-primary" id="editSave">저장</button>
+      </div>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="reportDialog" class="report-dialog" aria-labelledby="reportTitle">
+  <div class="report-wrap">
+    <div class="edit-head">
+      <div>
+        <h2 id="reportTitle">AI 요약 보고서</h2>
+        <p class="report-meta" id="reportMeta"></p>
+      </div>
+      <button type="button" class="icon-btn" id="reportClose" aria-label="닫기">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="report-tabs">
+      <div class="seg" role="group" aria-label="요약 방식">
+        <button type="button" data-rtab="ai" aria-pressed="true">AI 요약</button>
+        <button type="button" data-rtab="auto" aria-pressed="false">자동 요약</button>
+      </div>
+      <span class="report-note" id="reportNote"></span>
+    </div>
+    <article class="report-body" id="reportBody" aria-live="polite"></article>
+    <div class="edit-foot">
+      <span class="report-meta" id="reportStamp"></span>
+      <div class="edit-foot-btns">
+        <button type="button" class="btn-line" id="reportGen" hidden>AI 요약 생성</button>
+        <button type="button" class="btn-line" id="reportCopy">복사</button>
+        <button type="button" class="btn-line" id="reportPrint">인쇄</button>
+        <button type="button" class="btn-primary" id="reportOk">닫기</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="historyDialog" class="report-dialog" aria-labelledby="historyTitle">
+  <div class="report-wrap">
+    <div class="edit-head">
+      <h2 id="historyTitle">변경 이력</h2>
+      <button type="button" class="icon-btn" id="historyClose" aria-label="닫기">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="report-body" id="historyBody"></div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+window.PMS_SEED = {"version":1,"updatedAt":"2026-10-16T09:00:00+09:00","updatedBy":"초기 데이터","meta":{"university":"경북과학대학교","unit":"AI 사업단","program":"3주기 전문대학 혁신지원사업","period":{"start":"2026-03-01","end":"2027-02-28"},"asOf":"2026-08-31","asOfLabel":"2분기","y1Average":113},"indices":[{"id":"I1","no":"①","name":"미래교육혁신지수","area":"교육혁신 · G1","definition":"고등직업교육의 미래교육 전환을 위한 대학의 교육체계 혁신 역량 지수","formula":"융합교육 운영(20%) + AI기반 학습자 맞춤형 학습지원(30%) + 재학생 교육만족도(50%)","base":57.1,"targets":{"y1":76.5,"y2":88.3,"y3":100},"y1":{"value":88,"rate":115},"subs":[{"id":"S11","name":"융합교육 운영","unit":"건","weight":0.2,"type":"count","targets":{"base":2,"y1":4,"y2":6,"y3":8},"criteria":"마이크로디그리·나노디그리·융합전공 운영 건수 (3.1~차년도 2월 말)","y1":{"value":5,"rate":125,"note":"마이크로디그리 3(파크골프, 당구 생활·전문) · 융합전공 2(문화융합자율, 웰니스융합)"},"y2":{"agg":"sum","components":[{"name":"마이크로디그리 운영 건수","value":3},{"name":"나노디그리 운영 건수","value":null},{"name":"융합전공 운영 건수","value":null}],"flag":"부분 입력","note":"기획팀과 협의 필요","owner":"학사운영팀"}},{"id":"S12","name":"AI기반 학습자 맞춤형 학습지원","unit":"명","weight":0.3,"type":"count","targets":{"base":7,"y1":44,"y2":61,"y3":78},"criteria":"AI 셀터디(15시간 이상 이수) + AI 적응형 교과 참여 학생 수","y1":{"value":65,"rate":147.7,"note":"AI 셀터디 23 · AI 적응형 교과 42"},"y2":{"agg":"sum","components":[{"name":"AI셀터디(15시간 이상 이수) 학생","value":7},{"name":"AI적응형 교과 참여 학생 수","value":0}],"flag":"집계 중","note":"셀터디: 교수학습지원센터-123(2026.04.08.), 운영 중으로 현재값 도출 어려움 / 적응형: 담당자 변경, 운영 예정","owner":"교수학습지원센터"}},{"id":"S13","name":"재학생 교육만족도","unit":"점","weight":0.5,"type":"level","targets":{"base":80.6,"y1":80.9,"y2":81.2,"y3":81.5},"criteria":"학년도 말 수요자 만족도 조사 중 재학생 교육만족도 점수","y1":{"value":82.3,"rate":101.7,"note":"'25학년도 수요자 만족도 조사(표본 813명)"},"y2":{"agg":"single","components":[{"name":"현재값","value":73}],"flag":"근거 확인","note":"학년도 말 조사 지표. 현재값 73의 출처 미기재(세부현황 공란)","owner":"IR센터"}}]},{"id":"I2","no":"②","name":"학생지원혁신지수","area":"교육혁신 G1 · 고등직업교육혁신 G2","definition":"맞춤형 심리적응 및 취·창업, 진로 지원 등 대학의 학생지원 혁신 역량 지수","formula":"AI기반 진로·취업 설계 참여(50%) + 재학생 수 유지율(50%)","base":88.4,"targets":{"y1":91.8,"y2":96.1,"y3":100},"y1":{"value":100.3,"rate":109.3},"subs":[{"id":"S21","name":"AI기반 진로·취업 설계 참여","unit":"명","weight":0.5,"type":"count","targets":{"base":445,"y1":490,"y2":535,"y3":580},"criteria":"AI기반 자기진단과 취업 설계(AI면접, 자기소개서, 진로적성검사) 참여 학생 수","y1":{"value":595,"rate":121.4,"note":"AI기반 자기진단·취업설계 참여 595명"},"y2":{"agg":"single","components":[{"name":"참여 학생 수","value":434}],"flag":"","note":"2026.07.10 공문(8.31 기준)","owner":"취업지원센터"}},{"id":"S22","name":"재학생 수 유지율","unit":"%","weight":0.5,"type":"level","targets":{"base":92.6,"y1":91.8,"y2":92.6,"y3":92.6},"criteria":"해당연도 4.1자 대비 10.1자 재학생 수 비율 (B/A×100)","y1":{"value":90.8,"rate":98.9,"note":"정보공시 1학기 대비 2학기 · 성인학습자 휴학 증가로 미달"},"y2":{"agg":"ratio","components":[{"name":"(A) 재학인원 2026.4.1.","value":null},{"name":"(B) 재학인원 2026.10.1.","value":null}],"flag":"","note":"정보공시 참고. 엑셀 원본의 합계 수식(A+B)을 B/A×100으로 바로잡아 계산","owner":"학사운영팀"}}]},{"id":"I3","no":"③","name":"지·산·학글로컬혁신지수","area":"교육혁신 G1 · 산학·지역협력 G3 · 자율혁신 G4","definition":"지역사회·산업 맞춤형 인재양성을 위한 지·산·학 협력 및 재학생 글로벌 역량 제고 추진 역량 지수","formula":"지·산·학 협력교육(40%) + 열린평생직업교육(40%) + 재학생 글로벌 핵심역량 향상(20%)","base":97.7,"targets":{"y1":98.4,"y2":99.2,"y3":100},"y1":{"value":106,"rate":107.7},"subs":[{"id":"S31","name":"지·산·학 협력교육","unit":"건","weight":0.4,"type":"count","targets":{"base":1173,"y1":1185,"y2":1197,"y3":1209},"criteria":"정규·비정규 캡스톤, 현장실습 운영 건수 (현장실습은 이수 인원을 건수로)","y1":{"value":1240,"rate":104.6,"note":"정규 캡스톤 7 · 비정규 캡스톤 8 · 현장실습 1,225"},"y2":{"agg":"sum","components":[{"name":"정규 캡스톤 운영 건수","value":2},{"name":"비정규 캡스톤 운영 건수","value":2},{"name":"현장실습 운영 건수(명)","value":1120}],"flag":"계획 포함","note":"현장실습: 1학기·하계·2학기 결과 및 계획 기준(미이수자 예상치 제외)","owner":"학사운영팀, 현장실습지원센터"}},{"id":"S32","name":"열린평생직업교육","unit":"명","weight":0.4,"type":"count","targets":{"base":1030,"y1":1040,"y2":1050,"y3":1060},"criteria":"선행학습(산업체, 타 대학 이수, 직업계고 연계 등) 학점인정 학생 수","y1":{"value":927,"rate":89.1,"note":"교양 449 · 전공 232 · 유교과 143 · 외국인 100 · 군복학 3 · 선행학습 미인정 다수로 미달"},"y2":{"agg":"sum","components":[{"name":"교양 학점인정 인원","value":320},{"name":"전공 학점인정 인원(유교과 포함)","value":47},{"name":"군복학","value":0},{"name":"유아교육과 전공 학점인정","value":40},{"name":"외국인 유학생 학점인정 인원","value":27}],"flag":"","note":"학사운영팀-482·489(4.16.), 596(5.4.) · 유아교육과 중복 집계 여부 확인 필요","owner":"학사운영팀"}},{"id":"S33","name":"재학생 글로벌 핵심역량 향상","unit":"점","weight":0.2,"type":"level","targets":{"base":0.2,"y1":0.2,"y2":0.2,"y3":0.2},"criteria":"재학생 글로벌 핵심역량 사전-사후 대비 향상 점수 (연초·연말 진단)","y1":{"value":0.3,"rate":150,"note":"사전-사후 대비 향상 0.3점"},"y2":{"agg":"single","components":[{"name":"현재값","value":0.18}],"flag":"근거 확인","note":"연말 진단 지표. 현재값 출처 미기재","owner":"IR센터"}}]},{"id":"I4","no":"④","name":"사회적책무혁신지수","area":"자율혁신 · G4","definition":"타 대학·지역과의 공유·협력 모델 확산 및 책무성 강화 등 대학의 사회적 가치 실현 역량 지수","formula":"재학생 도덕성(Altrism)역량 향상(30%) + 인적·물적 자원 공유·협력(30%) + 성과 공유·확산(40%)","base":81.3,"targets":{"y1":85.1,"y2":92.5,"y3":100},"y1":{"value":102.2,"rate":120.2},"subs":[{"id":"S41","name":"재학생 도덕성(Altrism)역량 향상","unit":"점","weight":0.3,"type":"level","targets":{"base":0.1,"y1":0.2,"y2":0.2,"y3":0.2},"criteria":"재학생 도덕성 핵심역량 사전-사후 대비 향상 점수 (연초·연말 진단)","y1":{"value":null,"rate":null,"note":"정의서에 1차년도 세부 실적 없음"},"y2":{"agg":"single","components":[{"name":"현재값","value":0.18}],"flag":"근거 확인","note":"연말 진단 지표. 현재값 출처 미기재","owner":"IR센터"}},{"id":"S42","name":"인적·물적 자원 공유·협력","unit":"건","weight":0.3,"type":"count","targets":{"base":108,"y1":113,"y2":118,"y3":123},"criteria":"대학 간 공동교과목 개발, 학점교류, 지·산·학 교육공간 공유, 교류협력 건수","y1":{"value":null,"rate":null,"note":"정의서에 1차년도 세부 실적 없음"},"y2":{"agg":"sum","components":[{"name":"공동교과목 개발 건수","value":1},{"name":"학점교류 건수","value":2},{"name":"인적자원 공유","value":null},{"name":"교육공간 공유","value":68}],"flag":"부분 입력","note":"공동교과목: 생활속의 AI윤리이야기 / 학점교류: 유한대, 한림성심대","owner":"기획팀, 학사운영팀, 교육환경지원팀"}},{"id":"S43","name":"성과 공유·확산","unit":"건","weight":0.4,"type":"count","targets":{"base":32,"y1":22,"y2":27,"y3":32},"criteria":"벤치마킹, 포럼 및 워크숍, 발표 건수","y1":{"value":null,"rate":null,"note":"정의서에 1차년도 세부 실적 없음"},"y2":{"agg":"single","components":[{"name":"공유·확산 건수","value":18}],"flag":"","note":"","owner":"기획팀"}}]}],"issues":[{"id":"X1","scope":"y2","level":"긴급","title":"재학생 수 유지율 미입력","desc":"4.1·10.1 재학인원 입력 필요. 엑셀의 합계 수식 오류(A+B)는 이 시스템에서 B/A×100으로 계산.","owner":"학사운영팀 · IR센터","done":false},{"id":"X2","scope":"y2","level":"긴급","title":"설문형 지표 3개 현재값 출처 확인","desc":"교육만족도 73, 글로벌 0.18, 도덕성 0.18. 임시값이면 '근거 확인' 유지, 확정 시 상태 변경.","owner":"IR센터","done":false},{"id":"X3","scope":"y2","level":"확인","title":"현장실습 1,120명 계획 인원 포함","desc":"2학기 결과 확정 시 실적값으로 교체.","owner":"현장실습지원센터","done":false},{"id":"X4","scope":"y2","level":"확인","title":"열린평생직업교육 유아교육과 중복 여부","desc":"전공(유교과 포함) 47명과 유교과 40명이 각각 합산됨.","owner":"학사운영팀","done":false},{"id":"X5","scope":"y2","level":"확인","title":"미입력 세부운영지수","desc":"나노디그리·융합전공 운영 건수, AI 적응형 교과, 인적자원 공유.","owner":"학사운영팀 · 교수학습지원센터 · 기획팀","done":false},{"id":"X6","scope":"y2","level":"정리","title":"엑셀 원본 정리","desc":"외부 파일 참조(F10·F13), 오래된 외부 연결 8개, #REF! 이름, '2023학년도 달성값 계산' 열, 중복된 관리부서 열.","owner":"IR센터","done":false},{"id":"P1","scope":"y1","level":"확인","title":"① 산출식 표의 1·2차 값 불일치","desc":"산출식 표 71.6·85.9 ↔ 목표값 76.5·88.3 (계산식 결과는 후자).","owner":"사업단","done":false},{"id":"P2","scope":"y1","level":"확인","title":"② 실적 계산식의 유지율 값","desc":"계산식 91.2, 세부 실적 90.8. 90.8이어야 100.3과 일치.","owner":"사업단","done":false},{"id":"P3","scope":"y1","level":"확인","title":"② 유지율 산출식 분자·분모 반전","desc":"'3차년도 유지율/n차년도 목표'로 기재됨.","owner":"사업단","done":false},{"id":"P4","scope":"y1","level":"확인","title":"③ 현장실습 증가 인원","desc":"자체평가 '55명 증가' ↔ 1,160→1,225로 65건 증가.","owner":"사업단","done":false},{"id":"P5","scope":"y1","level":"확인","title":"④ 성과 공유·확산 3년 평균","desc":"평균 26건으로 기재했으나 내역 합계는 32건.","owner":"사업단","done":false},{"id":"P6","scope":"y1","level":"정리","title":"반올림 기준 혼재","desc":"① 1차 목표 76.555→76.5, ③ 1차 목표 98.451→98.4 버림 처리. ④ 달성도 120.2(반올림 값 기준 120.1).","owner":"사업단","done":false}],"schedule":[{"id":"D1","title":"3분기 실적 입력 마감","owner":"지표관리부서","date":""},{"id":"D2","title":"재학생 수 유지율(10.1자) 확정","owner":"학사운영팀","date":""},{"id":"D3","title":"수요자 만족도·핵심역량 진단","owner":"IR센터","date":""},{"id":"D4","title":"2차년도 연차 성과보고서 제출","owner":"사업단","date":""}]};
+</script>
+<script>
+/* AI 사업단 성과관리 시스템 - 화면 로직 (외부 라이브러리 없음) */
+(function () {
+  'use strict';
+
+  const POLL_MS = 30000; // 다른 사용자 저장 확인 주기(화면이 보일 때만)
+  const $ = (s, r) => (r || document).querySelector(s);
+  const app = $('#app');
+
+  const state = {
+    data: null,
+    view: localStorage.getItem('pms.view') || 'y2',          // y2: 2차 진행, y1: 1차 실적
+    colorMode: localStorage.getItem('pms.colorMode') || 'target', // target: 목표 대비, pace: 기간 경과 반영
+    editKey: sessionStorage.getItem('pms.editKey') || '',
+    saving: false,
+    mode: null,
+    inlineEdit: null
+  };
+
+  // ---------- 유틸 ----------
+  const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const isNum = (v) => typeof v === 'number' && isFinite(v);
+  const fmtNum = (v) => {
+    if (!isNum(v)) return '—';
+    const d = Math.abs(v) < 10 && !Number.isInteger(v) ? 2 : (Number.isInteger(v) ? 0 : 1);
+    return v.toLocaleString('ko-KR', { minimumFractionDigits: 0, maximumFractionDigits: d });
+  };
+  const fmtPct = (v) => (isNum(v) ? v.toFixed(1) + '%' : '—');
+  const pad = (n) => String(n).padStart(2, '0');
+  const DAYS = ['일', '월', '화', '수', '목', '금', '토'];
+  const parseDate = (s) => {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || '');
+    return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null;
+  };
+  const fmtDate = (d) => d.getFullYear() + '.' + pad(d.getMonth() + 1) + '.' + pad(d.getDate()) + ' (' + DAYS[d.getDay()] + ')';
+
+  function toast(msg) {
+    const t = $('#toast');
+    t.textContent = msg;
+    t.hidden = false;
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => { t.hidden = true; }, 3500);
+  }
+
+  // ---------- 테마 ----------
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    const b = $('#themeBtn');
+    b.textContent = theme === 'dark' ? '일반 모드' : '다크 모드';
+    b.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+  }
+  let theme = localStorage.getItem('pms.theme') ||
+    (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  applyTheme(theme);
+  $('#themeBtn').addEventListener('click', () => {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('pms.theme', theme);
+    applyTheme(theme);
+  });
+
+  // ---------- 계산 ----------
+  function periodInfo(meta, at) {
+    const start = parseDate(meta.period.start);
+    const endEx = parseDate(meta.period.end);
+    endEx.setDate(endEx.getDate() + 1);
+    const ratio = (d) => Math.max(0, Math.min(1, (d - start) / (endEx - start)));
+    const asOf = parseDate(meta.asOf) || at;
+    return { asOfRatio: ratio(asOf), todayRatio: ratio(at) };
+  }
+
+  function subValueY2(s) {
+    const y = s.y2;
+    const vals = y.components.map((c) => (isNum(c.value) ? c.value : null));
+    if (y.agg === 'ratio') {
+      const [a, b] = vals;
+      return isNum(a) && isNum(b) && a > 0 ? (b / a) * 100 : null;
+    }
+    if (y.agg === 'single') return vals[0];
+    const filled = vals.filter((v) => v !== null);
+    return filled.length ? filled.reduce((x, v) => x + v, 0) : null;
+  }
+
+  function compute(data) {
+    const p = periodInfo(data.meta, new Date());
+    const indices = data.indices.map((ix) => {
+      let indexY2 = 0;
+      let missing = false;
+      const subs = ix.subs.map((s) => {
+        const v2 = subValueY2(s);
+        if (v2 === null) missing = true;
+        indexY2 += ((v2 || 0) / s.targets.y3) * 100 * s.weight;
+        const r2 = v2 === null ? null : (v2 / s.targets.y2) * 100;
+        const partial = s.y2.agg === 'sum' && s.y2.components.some((c) => !isNum(c.value)) && v2 !== null;
+        return { ...s, v2, r2, partial };
+      });
+      const r2 = (indexY2 / ix.targets.y2) * 100;
+      return { ...ix, subs, v2: indexY2, r2, missing };
+    });
+    const avgY2 = indices.reduce((a, ix) => a + ix.r2, 0) / indices.length;
+    return { indices, avgY2, period: p };
+  }
+
+  // 색상: 90% 이상 초록 · 60% 이상 주황 · 60% 미만 빨강
+  function colorFor(pct) {
+    if (!isNum(pct)) return 'var(--flag)';
+    if (pct >= 90) return 'var(--green)';
+    if (pct >= 60) return 'var(--orange)';
+    return 'var(--red)';
+  }
+
+  // 기간 경과 반영 모드: 누적형 지표는 (진척률 ÷ 경과율)로 색을 판단
+  function colorBasis(pct, type, pace) {
+    if (state.colorMode === 'pace' && type === 'count' && isNum(pct) && pace > 0) return pct / pace;
+    return pct;
+  }
+
+  function donutSVG(pct, color, opts) {
+    const o = opts || {};
+    const size = o.size || 140;
+    const C = 2 * Math.PI * 50;
+    const p = isNum(pct) ? Math.max(0, Math.min(pct, 100)) : 0;
+    const len = (p / 100) * C;
+    const cap = p > 0 && p < 100 ? 'round' : 'butt';
+    let tick = '';
+    if (isNum(o.tick)) {
+      const a = (o.tick * 360 - 90) * Math.PI / 180;
+      const x1 = 60 + 41 * Math.cos(a), y1 = 60 + 41 * Math.sin(a);
+      const x2 = 60 + 59 * Math.cos(a), y2 = 60 + 59 * Math.sin(a);
+      tick = `<line x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${x2.toFixed(2)}" y2="${y2.toFixed(2)}" stroke="var(--strong)" stroke-width="2"/>`;
+    }
+    return `<svg width="${size}" height="${size}" viewBox="0 0 120 120" role="img" aria-label="${esc(o.aria || '')}">
+      <circle cx="60" cy="60" r="50" fill="none" stroke="var(--track)" stroke-width="11"/>
+      <circle class="arc" cx="60" cy="60" r="50" fill="none" stroke="${color}" stroke-width="11" stroke-linecap="${cap}" stroke-dasharray="${len.toFixed(2)} ${C.toFixed(2)}" transform="rotate(-90 60 60)"/>
+      ${tick}
+      <text x="60" y="62" text-anchor="middle" font-size="21" font-weight="700" fill="var(--strong)">${esc(isNum(pct) ? pct.toFixed(1) + '%' : '—')}</text>
+      <text x="60" y="79" text-anchor="middle" font-size="10" fill="var(--muted)">${esc(o.caption || '')}</text>
+    </svg>`;
+  }
+
+  function subStatus(s, isY2) {
+    if (!isY2) {
+      if (!isNum(s.y1.rate)) return { text: '자료 없음', cls: 'flag' };
+      return s.y1.rate >= 100 ? { text: '달성', cls: 'ok' } : { text: '미달', cls: 'miss' };
+    }
+    if (s.v2 === null) return { text: '미입력', cls: 'flag' };
+    if (s.y2.flag) return { text: s.y2.flag, cls: 'flag' };
+    return { text: '확정', cls: 'ok' };
+  }
+
+  // 대학명: 저장된 값이 자리표시([..])이면 기본값 사용
+  const univName = (d) => (d && d.meta && d.meta.university && !/^\[/.test(d.meta.university) ? d.meta.university : '경북과학대학교');
+
+  // ---------- 렌더 ----------
+  function render() {
+    const data = state.data;
+    if (!data) return;
+    const c = compute(data);
+    const isY2 = state.view === 'y2';
+    const pace = c.period.asOfRatio;
+    const now = new Date();
+
+    $('#brandUniv').textContent = univName(data);
+    $('#footUpdated').textContent = (state.mode === 'local' ? '단독 실행(이 브라우저에 저장) · ' : '') + '최종 저장 ' + (data.updatedAt || '').replace('T', ' ').slice(0, 16) + ' · ' + (data.updatedBy || '') + ' · v' + data.version;
+    $('#editBtn').hidden = !isY2;
+
+    // 상태 집계
+    const counts = { done: 0, flag: 0, missing: 0 };
+    c.indices.forEach((ix) => ix.subs.forEach((s) => {
+      if (s.v2 === null) counts.missing++; else if (s.y2.flag) counts.flag++; else counts.done++;
+    }));
+
+    const head = `
+      <section class="page-head">
+        <div>
+          <div class="eyebrow">${esc(data.meta.program)} 자율성과지표</div>
+          <h1>${isY2 ? `2차년도('26) ${esc(data.meta.asOfLabel)} 진척 현황` : `1차년도('25) 성과 달성 현황`}</h1>
+          <p><span class="now" id="nowText">${esc(nowText())}</span>
+            ${isY2 ? `, 자료 기준일 ${esc(data.meta.asOf.replace(/-/g, '.'))}` : ', 정의서 원값 기준'}</p>
+        </div>
+        <div class="head-ctrls">
+          <div class="seg" role="group" aria-label="연차 선택">
+            <button type="button" data-view="y2" aria-pressed="${isY2}">2차년도 진행</button>
+            <button type="button" data-view="y1" aria-pressed="${!isY2}">1차년도 실적</button>
+          </div>
+          ${isY2 ? `<div class="seg" role="group" aria-label="색상 기준">
+            <button type="button" data-color="target" aria-pressed="${state.colorMode === 'target'}">목표 대비</button>
+            <button type="button" data-color="pace" aria-pressed="${state.colorMode === 'pace'}">기간 경과 반영</button>
+          </div>` : ''}
+          <div class="tools">
+            <button type="button" class="btn-line" data-act="csv">CSV 내려받기</button>
+            <button type="button" class="btn-line" data-act="export">JSON 내보내기</button>
+            <button type="button" class="btn-line" data-act="import">JSON 불러오기</button>
+            ${state.mode === 'server' ? '<button type="button" class="btn-line" data-act="history">변경 이력</button>' : ''}
+            <button type="button" class="btn-line" data-act="print">인쇄</button>
+          </div>
+        </div>
+      </section>`;
+
+    const period = isY2 ? `
+      <section class="card period" aria-label="집계기간 경과">
+        <div class="period-main">
+          <div class="period-text">
+            <b>집계기간 ${esc(data.meta.period.start.replace(/-/g, '.'))} – ${esc(data.meta.period.end.replace(/-/g, '.'))}</b>
+            <span>자료 기준일 경과 ${(pace * 100).toFixed(1)}%, 오늘 기준 <span id="todayRatio">${(c.period.todayRatio * 100).toFixed(1)}</span>%</span>
+          </div>
+          <div class="bar"><div class="fill" style="width:${(c.period.todayRatio * 100).toFixed(1)}%"></div><div class="mark" style="left:calc(${(pace * 100).toFixed(1)}% - 1px)"></div></div>
+        </div>
+        <div class="pills">
+          <span class="pill chip ok">확정 ${counts.done}</span>
+          <span class="pill chip flag">확인 필요 ${counts.flag}</span>
+          <span class="pill chip miss">미입력 ${counts.missing}</span>
+        </div>
+      </section>` : '';
+
+    const legend = `<div class="legend">
+        <span><i style="background:var(--green)"></i>90% 이상</span>
+        <span><i style="background:var(--orange)"></i>60–90%</span>
+        <span><i style="background:var(--red)"></i>60% 미만</span>
+        ${isY2 ? (state.colorMode === 'target' ? '<span><i class="tick"></i>기간 경과 지점</span>' : '<span>누적 지표는 경과율 대비로 색 판단</span>') : '<span><i style="background:var(--flag)"></i>자료 없음</span>'}
+      </div>`;
+
+    // 지수 도넛
+    const avg = isY2 ? c.avgY2 : data.meta.y1Average;
+    const tickIdx = isY2 && state.colorMode === 'target' ? pace : null;
+    const idxColor = (r) => colorFor(isY2 && state.colorMode === 'pace' ? r / pace : r);
+    let donuts = `<div class="donut">${donutSVG(avg, idxColor(avg), { caption: isY2 ? '4개 지수 평균' : '평균 달성도', tick: tickIdx, aria: '종합 ' + fmtPct(avg) })}
+        <span class="d-label">종합</span><span class="d-detail">${isY2 ? (c.indices.some((i) => i.missing) ? '미입력 항목 포함' : '4개 지수 평균') : '4개 지수 모두 목표 초과'}</span></div>`;
+    c.indices.forEach((ix) => {
+      const r = isY2 ? ix.r2 : ix.y1.rate;
+      donuts += `<div class="donut">${donutSVG(r, idxColor(r), { caption: isY2 ? '2차 목표 대비' : '1차 달성도', tick: tickIdx, aria: ix.name + ' ' + fmtPct(r) })}
+        <span class="d-label">${esc(ix.no)} ${esc(ix.name)}</span>
+        <span class="d-detail">${isY2 ? `현재 ${ix.v2.toFixed(1)} / 목표 ${ix.targets.y2.toFixed(1)}` : `실적 ${ix.y1.value.toFixed(1)} / 목표 ${ix.targets.y1.toFixed(1)}`}</span></div>`;
+    });
+
+    const roadmap = `<div class="table-box"><table class="wide">
+      <caption>연차별 목표 로드맵 (3차년도 '27 목표 = 100.0)</caption>
+      <thead><tr><th scope="col">자율성과지표</th><th scope="col">기준값</th><th scope="col">1차 목표</th><th scope="col">1차 실적</th><th scope="col">1차 달성도</th><th scope="col">2차 목표</th><th scope="col">2차 현재</th><th scope="col">2차 진척률</th></tr></thead>
+      <tbody>${c.indices.map((ix) => `<tr>
+        <th scope="row">${esc(ix.no)} ${esc(ix.name)}</th>
+        <td>${ix.base.toFixed(1)}</td><td>${ix.targets.y1.toFixed(1)}</td>
+        <td class="v">${ix.y1.value.toFixed(1)}</td><td class="r" style="color:${colorFor(ix.y1.rate)}">${fmtPct(ix.y1.rate)}</td>
+        <td>${ix.targets.y2.toFixed(1)}</td><td class="v">${ix.v2.toFixed(1)}</td>
+        <td class="r" style="color:${idxColor(ix.r2)}">${fmtPct(ix.r2)}</td></tr>`).join('')}
+      </tbody></table></div>
+      ${isY2 ? '<p class="memo">2차 지수는 3차년도 목표를 분모로 한 연말 기준 값이라 집계 중간에는 낮게 나옵니다. 미입력 항목은 0으로 계산됩니다. 분기 점검은 세부지표 진척률을 기간 경과율과 함께 보세요.</p>' : ''}`;
+
+    const indexCard = `<section class="card" aria-labelledby="idxTitle">
+      <div class="card-head"><div><h2 id="idxTitle">${isY2 ? '지수별 진척률' : '지수별 달성도'}</h2>
+        <p>${isY2 ? '2차년도 목표 대비 현재 지수' : '1차년도 목표 대비 실적 (문서 원값)'}</p></div>${legend}</div>
+      <div class="donut-grid">${donuts}</div>${roadmap}</section>`;
+
+    // 지표별 섹션
+    const sections = c.indices.map((ix) => {
+      const subDonuts = ix.subs.map((s) => {
+        const r = isY2 ? s.r2 : s.y1.rate;
+        const st = subStatus(s, isY2);
+        const tk = isY2 && state.colorMode === 'target' && s.type === 'count' ? pace : null;
+        return `<div class="donut">${donutSVG(r, colorFor(isY2 ? colorBasis(r, s.type, pace) : r), { size: 116, caption: isY2 ? '진척률' : '달성률', tick: tk, aria: s.name + ' ' + fmtPct(r) + ', ' + st.text })}
+          <span class="d-label">${esc(s.name)}</span><span class="chip ${st.cls}">${esc(st.text)}</span></div>`;
+      }).join('');
+      const rows = ix.subs.map((s) => {
+        const y = isY2 ? { t: s.targets.y2, v: s.v2, r: s.r2, note: compNote(s) } : { t: s.targets.y1, v: s.y1.value, r: s.y1.rate, note: s.y1.note };
+        const col = colorFor(isY2 ? colorBasis(y.r, s.type, pace) : y.r);
+        const editing = isY2 && state.inlineEdit === s.id;
+        const valueText = isNum(y.v) ? fmtNum(y.v) + esc(s.unit) : '—';
+        const valueCell = isY2
+          ? `<button type="button" class="cell-edit" data-inline-edit="${esc(s.id)}" aria-expanded="${editing}" aria-label="${esc(s.name)} 현재값 수정">
+               <span>${isNum(y.v) ? valueText : '입력'}</span>
+               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+             </button>`
+          : valueText;
+        return `<tr class="${editing ? 'is-editing' : ''}"><th scope="row">${esc(s.name)} <span class="w">(${Math.round(s.weight * 100)}%)</span></th>
+          <td>${fmtNum(y.t)}${esc(s.unit)}</td>
+          <td class="v">${valueCell}</td>
+          <td class="r" style="color:${col}">${fmtPct(y.r)}</td>
+          <td class="note">${esc(y.note)}${isY2 && s.y2.owner ? `<br><span class="sub-meta">${esc(s.y2.owner)}${s.y2.manager ? ' · ' + esc(s.y2.manager) : ''}</span>` : ''}</td></tr>
+          ${editing ? inlineEditor(s) : ''}`;
+      }).join('');
+      const memo = isY2 && ix.missing ? `<p class="memo">미입력 항목이 있어 지수(${ix.v2.toFixed(1)})가 실제보다 낮게 계산되었습니다.</p>` :
+        (!isY2 && ix.subs.every((s) => !isNum(s.y1.rate)) ? '<p class="memo">정의서에 1차년도 세부 실적이 없어 지수 실적만 반영했습니다.</p>' : '');
+      return `<section class="card" id="sec-${esc(ix.id)}">
+        <div class="card-head"><div><h2>${esc(ix.no)} ${esc(ix.name)}</h2><p>${esc(ix.area)}</p></div>
+          <span class="sub-meta">${isY2 ? `지수 ${ix.v2.toFixed(1)} / 2차 목표 ${ix.targets.y2.toFixed(1)}, 진척률 ${fmtPct(ix.r2)}` : `지수 ${ix.y1.value.toFixed(1)} / 1차 목표 ${ix.targets.y1.toFixed(1)}, 달성도 ${fmtPct(ix.y1.rate)}`}</span></div>
+        <div class="donut-grid sm">${subDonuts}</div>
+        <div class="table-box"><table class="wide">
+          <thead><tr><th scope="col">세부지표 (가중치)</th><th scope="col">${isY2 ? '2차 목표' : '1차 목표'}</th><th scope="col">${isY2 ? '현재값 <span class="w">(눌러서 수정)</span>' : '1차 실적'}</th><th scope="col">${isY2 ? '진척률' : '달성률'}</th><th scope="col" class="l">산출 내역 · 비고</th></tr></thead>
+          <tbody>${rows}</tbody></table></div>
+        ${memo}
+        <details class="def"><summary>지표 정의와 산출식</summary><dl>
+          <dt>정의</dt><dd>${esc(ix.definition)}</dd>
+          <dt>산출식</dt><dd>${esc(ix.formula)} · 각 세부지표 ÷ 3차년도 목표 × 100 × 가중치</dd>
+          ${ix.subs.map((s) => `<dt>${esc(s.name)}</dt><dd>${esc(s.criteria)} · 목표 ${fmtNum(s.targets.base)} → ${fmtNum(s.targets.y1)} → ${fmtNum(s.targets.y2)} → ${fmtNum(s.targets.y3)}${esc(s.unit)}</dd>`).join('')}
+        </dl></details>
+      </section>`;
+    }).join('');
+
+    // 사이드
+    const issues = data.issues.filter((i) => i.scope === state.view);
+    const openCount = issues.filter((i) => !i.done).length;
+    const issueCard = `<section class="card" aria-labelledby="issueTitle">
+      <div class="card-head"><h2 id="issueTitle">자료 점검</h2><span class="badge-count">미해결 ${openCount}건</span></div>
+      <p class="sub-meta" style="margin:0">${isY2 ? '2분기 엑셀 파일 기준. 해결되면 체크하세요(모두에게 반영).' : '정의서 기준. 수치는 원문대로 표기했습니다.'}</p>
+      <ul class="issue-list">${issues.map((i) => `<li class="issue ${i.done ? 'done' : ''}">
+        <input type="checkbox" id="iss-${esc(i.id)}" data-issue="${esc(i.id)}" ${i.done ? 'checked' : ''}>
+        <label for="iss-${esc(i.id)}"><span class="it">${esc(i.title)}</span><span class="id">${esc(i.desc)}</span><span class="io">담당 ${esc(i.owner)}</span></label>
+        <span class="lv ${esc(i.level)}">${esc(i.level)}</span></li>`).join('')}</ul></section>`;
+
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const sched = data.schedule.map((s) => {
+      const d = parseDate(s.date);
+      let dd = 'D-[ ]', soon = false, when = '날짜 미정';
+      if (d) {
+        const diff = Math.round((d - today) / 86400000);
+        dd = diff === 0 ? 'D-DAY' : diff > 0 ? 'D-' + diff : 'D+' + (-diff);
+        soon = diff >= 0 && diff <= 7;
+        when = fmtDate(d);
+      }
+      return `<li><span class="dday ${soon ? 'soon' : ''}">${dd}</span><span><span class="st">${esc(s.title)}</span><br><span class="sd">${esc(when)}, ${esc(s.owner)}</span></span></li>`;
+    }).join('');
+    const schedCard = `<section class="card" aria-labelledby="schedTitle"><h2 id="schedTitle">주요 일정</h2>
+      <ul class="sched">${sched}</ul>${isY2 ? '<p class="sub-meta" style="margin:0">날짜는 실적 입력 화면에서 정합니다.</p>' : ''}</section>`;
+
+    app.innerHTML = head + period + indexCard +
+      `<div class="cols"><div class="main-col">${sections}</div><aside>${issueCard}${schedCard}</aside></div>`;
+  }
+
+  // ---------- 현재값 바로 수정(표 안 편집) ----------
+  function inlineEditor(s) {
+    const editor = localStorage.getItem('pms.editor') || '';
+    const formula = s.y2.agg === 'ratio' ? 'B/A×100으로 자동 계산' : s.y2.agg === 'sum' ? '합계로 자동 계산' : '';
+    return `<tr class="inline-row"><td colspan="5">
+      <div class="inline-form" data-inline-form="${esc(s.id)}" role="group" aria-label="${esc(s.name)} 현재값 수정">
+        <div class="edit-grid">
+          ${s.y2.components.map((c, k) => `<label class="field"><span>${esc(c.name)}</span>
+            <input type="number" step="any" inputmode="decimal" data-comp="${k}" value="${isNum(c.value) ? c.value : ''}"></label>`).join('')}
+          <label class="field"><span>상태</span><select data-flag>
+            ${FLAGS.map((f) => `<option value="${esc(f)}" ${s.y2.flag === f ? 'selected' : ''}>${f ? esc(f) : '확정'}</option>`).join('')}
+          </select></label>
+        </div>
+        <label class="field"><span>비고 · 근거 문서</span><textarea rows="2" data-note>${esc(s.y2.note)}</textarea></label>
+        <div class="inline-foot">
+          <span class="calc" data-inline-calc>${formula}</span>
+          <label class="field inline"><span>입력자</span><input type="text" data-editor maxlength="40" value="${esc(editor)}" placeholder="이름 또는 부서"></label>
+          <button type="button" class="btn-line" data-inline-cancel>취소</button>
+          <button type="button" class="btn-primary" data-inline-save="${esc(s.id)}">저장</button>
+        </div>
+      </div></td></tr>`;
+  }
+
+  function readInline(form, sub) {
+    const draft = clone(sub);
+    form.querySelectorAll('[data-comp]').forEach((inp) => {
+      const raw = inp.value.trim();
+      draft.y2.components[+inp.dataset.comp].value = raw === '' ? null : Number(raw);
+    });
+    draft.y2.flag = form.querySelector('[data-flag]').value;
+    draft.y2.note = form.querySelector('[data-note]').value.trim();
+    return draft;
+  }
+
+  function findSub(data, id) {
+    for (const ix of data.indices) for (const s of ix.subs) if (s.id === id) return s;
+    return null;
+  }
+
+  function updateInlineCalc(form) {
+    const sub = findSub(state.data, form.dataset.inlineForm);
+    if (!sub) return;
+    const v = subValueY2(readInline(form, sub));
+    const el = form.querySelector('[data-inline-calc]');
+    el.innerHTML = v === null ? '현재값 <b>미입력</b>' :
+      `현재값 <b>${fmtNum(+v.toFixed(2))}${esc(sub.unit)}</b>, 진척률 <b style="color:${colorFor((v / sub.targets.y2) * 100)}">${fmtPct((v / sub.targets.y2) * 100)}</b>`;
+  }
+
+  function openInline(id) {
+    state.inlineEdit = id;
+    render();
+    const form = document.querySelector(`[data-inline-form="${id}"]`);
+    if (form) {
+      updateInlineCalc(form);
+      const first = form.querySelector('input[data-comp]');
+      if (first) { first.focus(); first.select(); }
+    }
+  }
+
+  function closeInline(focusId) {
+    state.inlineEdit = null;
+    render();
+    const b = focusId && document.querySelector(`[data-inline-edit="${focusId}"]`);
+    if (b) b.focus();
+  }
+
+  async function saveInline(id) {
+    const form = document.querySelector(`[data-inline-form="${id}"]`);
+    if (!form) return;
+    const editorInput = form.querySelector('[data-editor]');
+    const editor = editorInput.value.trim();
+    if (!editor) { editorInput.focus(); toast('입력자 이름을 적어 주세요.'); return; }
+    localStorage.setItem('pms.editor', editor);
+    const next = clone(state.data);
+    const target = findSub(next, id);
+    const draft = readInline(form, target);
+    target.y2.components = draft.y2.components;
+    target.y2.flag = draft.y2.flag;
+    target.y2.note = draft.y2.note;
+    const btn = form.querySelector('[data-inline-save]');
+    btn.disabled = true;
+    btn.textContent = '저장 중';
+    const ok = await save(next, editor);
+    if (ok) closeInline(id);
+    else if (state.inlineEdit === id) {
+      const f = document.querySelector(`[data-inline-form="${id}"]`);
+      if (f) updateInlineCalc(f);
+    }
+  }
+
+  app.addEventListener('input', (e) => {
+    const form = e.target.closest('[data-inline-form]');
+    if (form) updateInlineCalc(form);
+  });
+  app.addEventListener('keydown', (e) => {
+    const form = e.target.closest('[data-inline-form]');
+    if (!form) return;
+    if (e.key === 'Escape') { e.preventDefault(); closeInline(form.dataset.inlineForm); }
+    if (e.key === 'Enter' && e.target.tagName === 'INPUT') { e.preventDefault(); saveInline(form.dataset.inlineForm); }
+  });
+
+  function compNote(s) {
+    const parts = s.y2.components.map((c) => c.name + ' ' + (isNum(c.value) ? fmtNum(c.value) : '미입력'));
+    const formula = s.y2.agg === 'ratio' ? ' (B/A×100)' : '';
+    const head = s.y2.agg === 'single' ? '' : parts.join(', ') + formula;
+    return [head, s.y2.note].filter(Boolean).join(' / ');
+  }
+
+  function nowText() {
+    const n = new Date();
+    return '오늘 ' + fmtDate(n) + ' ' + pad(n.getHours()) + ':' + pad(n.getMinutes());
+  }
+  setInterval(() => {
+    const el = $('#nowText');
+    if (el) el.textContent = nowText();
+  }, 10000);
+
+  // ---------- 저장소: 서버 모드(server.py로 실행) / 단독 파일 모드(HTML만 열기) ----------
+  const clone = (o) => JSON.parse(JSON.stringify(o));
+  const LS_DATA = 'pms.data';
+  const LS_BACKUP = 'pms.backups';
+
+  function setSync(text, cls) {
+    const s = $('#syncState');
+    s.textContent = text;
+    s.className = 'sync ' + (cls || '');
+  }
+
+  function localIso() {
+    const d = new Date();
+    const off = -d.getTimezoneOffset();
+    const sign = off >= 0 ? '+' : '-';
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds()) +
+      sign + pad(Math.floor(Math.abs(off) / 60)) + ':' + pad(Math.abs(off) % 60);
+  }
+
+  async function detectMode() {
+    if (!/^https?:$/.test(location.protocol)) return 'local';
+    try {
+      const ctl = new AbortController();
+      const timer = setTimeout(() => ctl.abort(), 2500);
+      const res = await fetch('/api/version', { cache: 'no-store', signal: ctl.signal });
+      clearTimeout(timer);
+      return res.ok && (res.headers.get('content-type') || '').includes('json') ? 'server' : 'local';
+    } catch (e) {
+      return 'local';
+    }
+  }
+
+  const seedData = () => clone(window.PMS_SEED);
+  function readLocal() {
+    try {
+      const raw = localStorage.getItem(LS_DATA);
+      return raw ? JSON.parse(raw) : seedData();
+    } catch (e) {
+      return seedData();
+    }
+  }
+  function writeLocal(d) {
+    try {
+      const prev = localStorage.getItem(LS_DATA);
+      if (prev) {
+        const list = JSON.parse(localStorage.getItem(LS_BACKUP) || '[]');
+        list.unshift(prev);
+        localStorage.setItem(LS_BACKUP, JSON.stringify(list.slice(0, 20)));
+      }
+      localStorage.setItem(LS_DATA, JSON.stringify(d));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  async function load() {
+    if (!state.mode) state.mode = await detectMode();
+    if (state.mode === 'local') {
+      if (!window.PMS_SEED && !localStorage.getItem(LS_DATA)) {
+        app.innerHTML = '<div class="error-box">초기 데이터를 찾지 못했습니다. 단독 실행용 HTML 파일을 사용하세요.</div>';
+        return;
+      }
+      state.data = readLocal();
+      setSync('이 브라우저에 저장', 'ok');
+      render();
+      return;
+    }
+    try {
+      const res = await fetch('/api/data', { cache: 'no-store' });
+      if (!res.ok) throw new Error(res.status);
+      state.data = await res.json();
+      setSync('실시간 연결', 'ok');
+      render();
+    } catch (e) {
+      setSync('서버 연결 끊김', 'err');
+      if (!state.data) app.innerHTML = '<div class="error-box">서버에 연결하지 못했습니다. 서버 PC에서 프로그램이 실행 중인지, 같은 와이파이에 연결되어 있는지 확인하세요.</div>';
+    }
+  }
+
+  async function poll() {
+    if (state.mode !== 'server' || document.hidden) return;
+    if (state.saving || state.inlineEdit || $('#editDialog').open || $('#reportDialog').open || $('#historyDialog').open) return;
+    try {
+      const res = await fetch('/api/version', { cache: 'no-store' });
+      const v = await res.json();
+      setSync('실시간 연결', 'ok');
+      if (state.data && v.version !== state.data.version) {
+        await load();
+        toast((v.updatedBy || '다른 사용자') + '님이 저장한 최신 내용을 불러왔습니다.');
+      }
+    } catch (e) {
+      setSync('서버 연결 끊김', 'err');
+    }
+  }
+
+  window.addEventListener('storage', (e) => {
+    if (state.mode === 'local' && e.key === LS_DATA && !$('#editDialog').open && !state.inlineEdit) {
+      state.data = readLocal();
+      render();
+      toast('다른 탭에서 저장한 내용을 불러왔습니다.');
+    }
+  });
+
+  async function save(next, editor) {
+    if (state.mode === 'local') {
+      delete next._auth;
+      next.version = (state.data.version || 0) + 1;
+      next.updatedAt = localIso();
+      next.updatedBy = String(editor || '이름 없음').slice(0, 40);
+      if (!writeLocal(next)) {
+        toast('브라우저에 저장하지 못했습니다. JSON 내보내기로 백업하세요.');
+        return false;
+      }
+      state.data = next;
+      render();
+      toast('저장했습니다. 이 브라우저에 보관됩니다.');
+      return true;
+    }
+    state.saving = true;
+    try {
+      const headers = { 'Content-Type': 'application/json' };
+      if (state.editKey) headers['X-Edit-Key'] = state.editKey;
+      const res = await fetch('/api/data', { method: 'PUT', headers, body: JSON.stringify({ data: next, baseVersion: state.data.version, editor }) });
+      const body = await res.json();
+      if (res.status === 401) {
+        const key = window.prompt('편집 비밀번호를 입력하세요.');
+        if (key) {
+          state.editKey = key;
+          sessionStorage.setItem('pms.editKey', key);
+          state.saving = false;
+          return save(next, editor);
+        }
+        toast('비밀번호가 없어 저장하지 않았습니다.');
+        return false;
+      }
+      if (res.status === 409) {
+        state.data = body.current;
+        render();
+        toast(body.error);
+        return false;
+      }
+      if (!res.ok) { toast(body.error || '저장하지 못했습니다.'); return false; }
+      state.data = body;
+      render();
+      toast('저장했습니다. 접속 중인 모든 화면에 반영됩니다.');
+      return true;
+    } catch (e) {
+      toast('서버에 연결하지 못해 저장하지 않았습니다.');
+      return false;
+    } finally {
+      state.saving = false;
+    }
+  }
+
+  // JSON 내보내기·불러오기 (파일로 주고받기, 백업)
+  function exportJSON() {
+    const out = clone(state.data);
+    delete out._auth;
+    const d = new Date();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' }));
+    a.download = `성과관리_데이터_${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}_v${out.version}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
+  const importInput = document.createElement('input');
+  importInput.type = 'file';
+  importInput.accept = '.json,application/json';
+  importInput.hidden = true;
+  document.body.appendChild(importInput);
+  importInput.addEventListener('change', () => {
+    const file = importInput.files[0];
+    importInput.value = '';
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async () => {
+      let next;
+      try {
+        next = JSON.parse(reader.result);
+        if (!Array.isArray(next.indices) || !next.meta) throw new Error('form');
+      } catch (e) {
+        toast('성과관리 데이터 파일이 아닙니다. 이 화면에서 내보낸 JSON 파일을 선택하세요.');
+        return;
+      }
+      const msg = `"${file.name}" (v${next.version || '?'}, ${String(next.updatedAt || '').slice(0, 10)})의 내용으로 현재 데이터를 바꿉니다. 계속할까요?`;
+      if (!window.confirm(msg)) return;
+      const editor = localStorage.getItem('pms.editor') || window.prompt('입력자 이름을 입력하세요.') || '이름 없음';
+      localStorage.setItem('pms.editor', editor);
+      await save(next, editor + ' (파일 불러오기)');
+    };
+    reader.readAsText(file, 'utf-8');
+  });
+
+  // ---------- 이벤트 ----------
+  app.addEventListener('click', (e) => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    if (b.dataset.view) { state.inlineEdit = null; state.view = b.dataset.view; localStorage.setItem('pms.view', state.view); render(); }
+    if (b.dataset.color) { state.colorMode = b.dataset.color; localStorage.setItem('pms.colorMode', state.colorMode); render(); }
+    if (b.dataset.act === 'print') window.print();
+    if (b.dataset.act === 'csv') downloadCSV();
+    if (b.dataset.act === 'export') exportJSON();
+    if (b.dataset.act === 'import') importInput.click();
+    if (b.dataset.act === 'history') openHistory();
+    if (b.dataset.inlineEdit) {
+      if (state.inlineEdit === b.dataset.inlineEdit) closeInline(b.dataset.inlineEdit);
+      else openInline(b.dataset.inlineEdit);
+    }
+    if ('inlineCancel' in b.dataset) closeInline(state.inlineEdit);
+    if (b.dataset.inlineSave) saveInline(b.dataset.inlineSave);
+  });
+
+  app.addEventListener('change', async (e) => {
+    const id = e.target.dataset && e.target.dataset.issue;
+    if (!id) return;
+    const next = clone(state.data);
+    const it = next.issues.find((i) => i.id === id);
+    it.done = e.target.checked;
+    const ok = await save(next, localStorage.getItem('pms.editor') || '이름 없음');
+    if (!ok) render();
+  });
+
+  function downloadCSV() {
+    const c = compute(state.data);
+    const rows = [['지표', '세부지표', '단위', '가중치', '기준값', '1차 목표', '1차 실적', '1차 달성률', '2차 목표', '2차 현재값', '2차 진척률', '상태', '3차 목표', '비고']];
+    c.indices.forEach((ix) => {
+      ix.subs.forEach((s) => rows.push([ix.name, s.name, s.unit, s.weight, s.targets.base, s.targets.y1, s.y1.value ?? '', s.y1.rate ?? '',
+        s.targets.y2, s.v2 === null ? '' : +s.v2.toFixed(2), s.r2 === null ? '' : +s.r2.toFixed(1), subStatus(s, true).text, s.targets.y3, compNote(s)]));
+      rows.push([ix.name, '(지수)', '', 1, ix.base, ix.targets.y1, ix.y1.value, ix.y1.rate, ix.targets.y2, +ix.v2.toFixed(1), +ix.r2.toFixed(1), ix.missing ? '미입력 포함' : '', ix.targets.y3, '']);
+    });
+    const csv = '\uFEFF' + rows.map((r) => r.map((v) => '"' + String(v).replace(/"/g, '""') + '"').join(',')).join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+    const d = new Date();
+    a.download = `자율성과지표_${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
+  // ---------- 실적 입력 ----------
+  const dlg = $('#editDialog');
+  const FLAGS = ['', '부분 입력', '집계 중', '근거 확인', '계획 포함', '임시값'];
+
+  function openEditor() {
+    const d = state.data;
+    const body = $('#editBody');
+    let html = `<p class="sub-meta">값을 비워 두면 '미입력'으로 처리됩니다. 합계와 비율은 자동 계산됩니다.</p>
+      <div class="edit-grid">
+        <label class="field"><span>자료 기준일</span><input type="date" name="meta.asOf" value="${esc(d.meta.asOf)}"></label>
+        <label class="field"><span>기준 분기 표기</span><input type="text" name="meta.asOfLabel" value="${esc(d.meta.asOfLabel)}"></label>
+      </div>`;
+    d.indices.forEach((ix, i) => {
+      html += `<details ${i === 0 ? 'open' : ''}><summary>${esc(ix.no)} ${esc(ix.name)}</summary>`;
+      ix.subs.forEach((s) => {
+        html += `<div class="edit-sub" data-sub="${esc(s.id)}">
+          <h3>${esc(s.name)} <small>2차 목표 ${fmtNum(s.targets.y2)}${esc(s.unit)} · ${s.y2.agg === 'ratio' ? 'B/A×100' : s.y2.agg === 'sum' ? '합계' : '단일값'}</small></h3>
+          <div class="edit-grid">${s.y2.components.map((c, k) => `
+            <label class="field"><span>${esc(c.name)}</span>
+              <input type="number" step="any" inputmode="decimal" name="${esc(s.id)}.c${k}" value="${isNum(c.value) ? c.value : ''}"></label>`).join('')}
+            <label class="field"><span>상태</span><select name="${esc(s.id)}.flag">
+              ${FLAGS.map((f) => `<option value="${esc(f)}" ${s.y2.flag === f ? 'selected' : ''}>${f ? esc(f) : '확정'}</option>`).join('')}
+            </select></label>
+          </div>
+          <label class="field"><span>비고 · 근거 문서</span><textarea name="${esc(s.id)}.note" rows="2">${esc(s.y2.note)}</textarea></label>
+          <div class="calc" data-calc="${esc(s.id)}"></div>
+        </div>`;
+      });
+      html += '</details>';
+    });
+    html += `<h3 class="section-title">주요 일정</h3><div class="edit-grid">${d.schedule.map((s) => `
+      <label class="field"><span>${esc(s.title)}</span><input type="date" name="sched.${esc(s.id)}" value="${esc(s.date)}"></label>`).join('')}</div>`;
+    body.innerHTML = html;
+    $('#editorName').value = localStorage.getItem('pms.editor') || '';
+    updateCalcs();
+    dlg.showModal();
+  }
+
+  function readForm() {
+    const next = clone(state.data);
+    const f = $('#editForm');
+    const get = (n) => f.elements.namedItem(n);
+    next.meta.asOf = get('meta.asOf').value || next.meta.asOf;
+    next.meta.asOfLabel = get('meta.asOfLabel').value.trim() || next.meta.asOfLabel;
+    next.indices.forEach((ix) => ix.subs.forEach((s) => {
+      s.y2.components.forEach((c, k) => {
+        const raw = get(s.id + '.c' + k).value.trim();
+        c.value = raw === '' ? null : Number(raw);
+      });
+      s.y2.flag = get(s.id + '.flag').value;
+      s.y2.note = get(s.id + '.note').value.trim();
+    }));
+    next.schedule.forEach((s) => { s.date = get('sched.' + s.id).value || ''; });
+    return next;
+  }
+
+  function updateCalcs() {
+    const next = readForm();
+    next.indices.forEach((ix) => ix.subs.forEach((s) => {
+      const v = subValueY2(s);
+      const el = document.querySelector(`[data-calc="${s.id}"]`);
+      if (el) el.innerHTML = v === null ? '현재값 <b>미입력</b>' :
+        `현재값 <b>${fmtNum(+v.toFixed(2))}${esc(s.unit)}</b>, 진척률 <b style="color:${colorFor((v / s.targets.y2) * 100)}">${fmtPct((v / s.targets.y2) * 100)}</b>`;
+    }));
+  }
+
+  $('#editBody').addEventListener('input', updateCalcs);
+  $('#editBtn').addEventListener('click', () => { if (state.data) openEditor(); });
+  $('#editClose').addEventListener('click', () => dlg.close());
+  $('#editCancel').addEventListener('click', () => dlg.close());
+  $('#editForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const editor = $('#editorName').value.trim();
+    if (!editor) { $('#editorName').focus(); return; }
+    localStorage.setItem('pms.editor', editor);
+    const btn = $('#editSave');
+    btn.disabled = true;
+    btn.textContent = '저장 중';
+    const ok = await save(readForm(), editor);
+    btn.disabled = false;
+    btn.textContent = '저장';
+    if (ok) dlg.close();
+  });
+
+
+  // ---------- 변경 이력·복원 (서버 모드) ----------
+  const hdlg = $('#historyDialog');
+  async function openHistory() {
+    const list = $('#historyBody');
+    list.innerHTML = '<p class="sub-meta">불러오는 중입니다.</p>';
+    hdlg.showModal();
+    try {
+      const res = await fetch('/api/history', { cache: 'no-store' });
+      if (!res.ok) throw new Error(res.status === 404 ? '이 환경에서는 변경 이력을 지원하지 않습니다.' : '이력을 불러오지 못했습니다.');
+      const j = await res.json();
+      const when = (iso) => String(iso || '').replace('T', ' ').slice(0, 16);
+      const rows = [`<li class="hist cur"><span><b>v${esc(j.current.version)}</b> 현재 버전</span><span class="sub-meta">${esc(when(j.current.updatedAt))} · ${esc(j.current.updatedBy)}</span></li>`]
+        .concat(j.history.map((h) => `<li class="hist"><span><b>v${esc(h.version)}</b></span><span class="sub-meta">${esc(when(h.updatedAt))} · ${esc(h.updatedBy)}</span>
+          <button type="button" class="btn-line" data-restore="${esc(h.version)}">이 버전으로 복원</button></li>`));
+      list.innerHTML = `<p class="sub-meta">저장할 때마다 직전 버전이 보관됩니다(최근 100개). 복원해도 현재 버전은 이력에 남습니다.</p><ul class="hist-list">${rows.join('')}</ul>`;
+    } catch (e) {
+      list.innerHTML = `<p class="sub-meta">${esc(e.message)}</p>`;
+    }
+  }
+  hdlg.addEventListener('click', async (e) => {
+    const b = e.target.closest('[data-restore]');
+    if (!b) return;
+    const v = b.dataset.restore;
+    if (!window.confirm(`v${v} 내용으로 되돌립니다. 계속할까요?`)) return;
+    const editor = localStorage.getItem('pms.editor') || window.prompt('이름을 입력하세요.') || '이름 없음';
+    localStorage.setItem('pms.editor', editor);
+    b.disabled = true;
+    try {
+      const res = await fetch('/api/history', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ version: Number(v), editor }) });
+      const j = await res.json();
+      if (!res.ok) throw new Error(j.error || '복원하지 못했습니다.');
+      state.data = j;
+      render();
+      hdlg.close();
+      toast(`v${v} 내용으로 복원했습니다.`);
+    } catch (err) {
+      toast(err.message);
+      b.disabled = false;
+    }
+  });
+  $('#historyClose').addEventListener('click', () => hdlg.close());
+
+  // 요약 보고서(report.js)에서 쓰는 공용 함수
+  window.PMS = { univName, state, compute, subStatus, compNote, esc, isNum, fmtNum, fmtPct, parseDate, fmtDate, toast };
+
+  load();
+  setInterval(poll, POLL_MS);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) poll(); });
+})();
+
+</script>
+<script>
+/* AI 요약 보고서 모달 */
+(function () {
+  'use strict';
+  const P = window.PMS;
+  const $ = (s) => document.querySelector(s);
+  const dlg = $('#reportDialog');
+  const body = $('#reportBody');
+  const r = { tab: 'ai', ai: false, model: '', cached: {}, busy: false, autoText: '', shownText: '' };
+  const isLocal = () => P.state.mode !== 'server';
+  const LS_KEY = 'pms.apiKey';
+  const LS_MODEL = 'pms.aiModel';
+  const LS_SUM = 'pms.summaries';
+  const DEFAULT_MODEL = 'claude-sonnet-5-5';
+  const SYSTEM_PROMPT = [
+    '당신은 전문대학 혁신지원사업 AI 사업단의 성과관리 담당자입니다.',
+    '사업단장에게 올릴 자율성과지표 현황 요약 보고서를 한국어로 작성합니다.',
+    '',
+    '원칙',
+    '- 제공된 JSON 데이터에 있는 수치만 사용합니다. 계산하거나 추정한 값을 새로 만들지 않습니다.',
+    "- value가 null인 항목은 '미입력', flag가 있는 항목은 그 상태(근거 확인, 계획 포함 등)를 반드시 밝힙니다.",
+    '- 진척률(rate)은 2차년도 목표 대비 비율입니다. 누적형(type=count) 지표는 집계기간 경과율(paceRatio)과 비교해 해석하고, 점수·비율형(type=level) 지표는 목표 대비로만 해석합니다.',
+    '- 지수는 3차년도 목표를 분모로 하므로 집계 중간에는 낮게 나온다는 점을 필요할 때 짚습니다.',
+    '- 단장이 1~2분 안에 읽을 수 있게 간결하게 씁니다. 과장이나 미사여구를 쓰지 않습니다.',
+    '',
+    '형식 (마크다운, 아래 제목을 그대로 사용)',
+    '## 종합 판단', '2~3문장.',
+    '## 지수별 현황', '지수마다 한 줄 불릿. 진척률(또는 달성도)과 핵심 원인.',
+    '## 주의가 필요한 지표', '불릿. 이유와 함께.',
+    '## 권고 조치', '불릿. 각 항목 앞에 **담당 부서**를 굵게 표시.',
+    '## 확인이 필요한 자료', '불릿. 미입력·근거 확인·계획 포함 값과 자료 점검 미해결 항목.'
+  ].join('\n');
+
+  // ---------- 간단한 마크다운 → HTML (## 제목, - 목록, **굵게**) ----------
+  function mdToHtml(md) {
+    const inline = (t) => P.esc(t).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    const out = [];
+    let list = false;
+    md.split(/\r?\n/).forEach((raw) => {
+      const line = raw.trim();
+      const item = /^[-*•]\s+(.*)$/.exec(line);
+      if (item) {
+        if (!list) { out.push('<ul>'); list = true; }
+        out.push('<li>' + inline(item[1]) + '</li>');
+        return;
+      }
+      if (list) { out.push('</ul>'); list = false; }
+      if (!line) return;
+      const h = /^#{1,4}\s+(.*)$/.exec(line);
+      if (h) out.push('<h3>' + inline(h[1]) + '</h3>');
+      else out.push('<p>' + inline(line) + '</p>');
+    });
+    if (list) out.push('</ul>');
+    return out.join('');
+  }
+
+  // ---------- 규칙 기반 자동 요약 ----------
+  function autoReport() {
+    const d = P.state.data;
+    const c = P.compute(d);
+    const isY2 = P.state.view === 'y2';
+    const pct = (v) => P.fmtPct(v);
+    const L = [];
+
+    if (!isY2) {
+      const sorted = c.indices.slice().sort((a, b) => b.y1.rate - a.y1.rate);
+      L.push('## 종합 판단');
+      L.push(`1차년도('25) 자율성과지표 4개의 평균 달성도는 ${d.meta.y1Average.toFixed(1)}%이며, 4개 지수 모두 목표를 넘었습니다. 달성도가 가장 높은 지수는 ${sorted[0].no} ${sorted[0].name}(${pct(sorted[0].y1.rate)})입니다.`);
+      L.push('## 지수별 현황');
+      c.indices.forEach((ix) => L.push(`- **${ix.no} ${ix.name}** 달성도 ${pct(ix.y1.rate)} (실적 ${ix.y1.value.toFixed(1)} / 목표 ${ix.targets.y1.toFixed(1)})`));
+      const miss = [];
+      c.indices.forEach((ix) => ix.subs.forEach((s) => { if (P.isNum(s.y1.rate) && s.y1.rate < 100) miss.push({ ix, s }); }));
+      L.push('## 주의가 필요한 지표');
+      if (miss.length) miss.forEach(({ ix, s }) => L.push(`- ${s.name}(${ix.no}) 달성률 ${pct(s.y1.rate)}: ${s.y1.note}`));
+      else L.push('- 목표에 미달한 세부지표가 없습니다.');
+      L.push('## 권고 조치');
+      miss.forEach(({ ix, s }) => L.push(`- **${s.y2.owner || '담당 부서'}**: ${s.name} 미달 원인을 2차년도 추진 계획에 반영`));
+      L.push('- **사업단**: 정의서 수치 불일치 항목을 연차보고서 제출 전에 정정');
+      const open = d.issues.filter((i) => i.scope === 'y1' && !i.done);
+      L.push('## 확인이 필요한 자료');
+      if (open.length) open.forEach((i) => L.push(`- ${i.title}: ${i.desc}`));
+      else L.push('- 미해결 점검 항목이 없습니다.');
+      if (c.indices.some((ix) => ix.subs.every((s) => !P.isNum(s.y1.rate)))) L.push('- ④ 사회적책무혁신지수의 1차년도 세부 실적이 정의서에 없습니다.');
+      return L.join('\n');
+    }
+
+    const pace = c.period.asOfRatio * 100;
+    const all = [];
+    c.indices.forEach((ix) => ix.subs.forEach((s) => all.push({ ix, s })));
+    const missing = all.filter(({ s }) => s.v2 === null);
+    const flagged = all.filter(({ s }) => s.v2 !== null && s.y2.flag);
+    const confirmed = all.filter(({ s }) => s.v2 !== null && !s.y2.flag);
+    const good = confirmed.filter(({ s }) => (s.type === 'count' ? s.r2 >= pace : s.r2 >= 100));
+    const late = confirmed.filter(({ s }) => (s.type === 'count' ? s.r2 < pace : s.r2 < 100));
+
+    L.push('## 종합 판단');
+    L.push(`${d.meta.asOfLabel}(${d.meta.asOf.replace(/-/g, '.')}) 기준, 4개 지수의 2차년도 목표 대비 평균 진척률은 ${pct(c.avgY2)}이고 집계기간은 ${pace.toFixed(1)}% 지났습니다. 세부지표 ${all.length}개 중 확정 ${confirmed.length}개, 확인 필요 ${flagged.length}개, 미입력 ${missing.length}개입니다.`);
+    L.push(missing.length
+      ? '미입력 항목이 0으로 계산되고 지수는 3차년도 목표를 분모로 하므로, 현재 지수는 실제보다 낮게 나타납니다. 분기 판단은 세부지표 진척률을 기간 경과율과 비교해 보는 것이 정확합니다.'
+      : '지수는 3차년도 목표를 분모로 하는 연말 기준 값이므로, 분기 판단은 세부지표 진척률을 기간 경과율과 비교해 보는 것이 정확합니다.');
+
+    L.push('## 지수별 현황');
+    c.indices.forEach((ix) => {
+      const notes = ix.subs.map((s) => `${s.name} ${s.v2 === null ? '미입력' : pct(s.r2)}${s.v2 !== null && s.y2.flag ? '(' + s.y2.flag + ')' : ''}`).join(', ');
+      L.push(`- **${ix.no} ${ix.name}** 진척률 ${pct(ix.r2)} (현재 ${ix.v2.toFixed(1)} / 목표 ${ix.targets.y2.toFixed(1)}). ${notes}`);
+    });
+
+    L.push('## 주의가 필요한 지표');
+    if (!late.length && !missing.length) L.push('- 확정값 가운데 기간 경과율보다 뒤처진 지표가 없습니다.');
+    late.forEach(({ ix, s }) => L.push(`- ${s.name}(${ix.no}) 진척률 ${pct(s.r2)}로 ${s.type === 'count' ? `기간 경과율(${pace.toFixed(1)}%)보다 낮습니다` : '목표에 못 미칩니다'}. ${s.y1.rate !== null && s.y1.rate < 100 ? '1차년도에도 미달한 지표입니다.' : ''}`.trim()));
+    missing.forEach(({ ix, s }) => L.push(`- ${s.name}(${ix.no})는 값이 입력되지 않아 ${ix.no} 지수가 낮게 계산됩니다.`));
+    if (good.length) L.push(`- 참고로 ${good.map(({ s }) => s.name + ' ' + pct(s.r2)).join(', ')}는 확정값 기준으로 진도가 양호합니다.`);
+
+    L.push('## 권고 조치');
+    missing.forEach(({ s }) => L.push(`- **${s.y2.owner || '담당 부서'}**: ${s.name} 값 입력`));
+    flagged.forEach(({ s }) => {
+      const act = s.y2.flag === '근거 확인' ? '현재값의 출처를 확인하거나 임시값으로 표기'
+        : s.y2.flag === '계획 포함' ? '결과 확정 시 실적값으로 교체'
+        : s.y2.flag === '부분 입력' ? '빈 세부운영지수 입력'
+        : s.y2.flag === '집계 중' ? '집계 완료 일정 공유' : '값 확정';
+      L.push(`- **${s.y2.owner || '담당 부서'}**: ${s.name} ${act}`);
+    });
+    late.forEach(({ s }) => L.push(`- **${s.y2.owner || '담당 부서'}**: ${s.name} 하반기 추진 계획과 만회 방안 보고`));
+
+    L.push('## 확인이 필요한 자료');
+    const open = d.issues.filter((i) => i.scope === 'y2' && !i.done);
+    if (open.length) open.forEach((i) => L.push(`- [${i.level}] ${i.title} (담당 ${i.owner})`));
+    else L.push('- 미해결 점검 항목이 없습니다.');
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const soon = d.schedule.map((s) => ({ s, dt: P.parseDate(s.date) })).filter((x) => x.dt && x.dt >= today && (x.dt - today) / 86400000 <= 30);
+    const undated = d.schedule.filter((s) => !P.parseDate(s.date)).length;
+    soon.forEach(({ s, dt }) => L.push(`- 30일 이내 일정: ${s.title}, ${P.fmtDate(dt)} (${s.owner})`));
+    if (undated) L.push(`- 날짜가 정해지지 않은 일정 ${undated}건`);
+    return L.join('\n');
+  }
+
+  // ---------- AI 입력 데이터 ----------
+  function aiInput() {
+    const d = P.state.data;
+    const c = P.compute(d);
+    const isY2 = P.state.view === 'y2';
+    const r1 = (v) => (P.isNum(v) ? Math.round(v * 10) / 10 : null);
+    return {
+      view: isY2 ? `2차년도('26) ${d.meta.asOfLabel} 진척 현황` : "1차년도('25) 성과 달성 현황",
+      program: d.meta.program,
+      asOf: d.meta.asOf,
+      period: d.meta.period,
+      paceRatio: isY2 ? r1(c.period.asOfRatio * 100) : null,
+      averageRate: isY2 ? r1(c.avgY2) : d.meta.y1Average,
+      indices: c.indices.map((ix) => ({
+        no: ix.no, name: ix.name, formula: ix.formula,
+        target: isY2 ? ix.targets.y2 : ix.targets.y1,
+        value: isY2 ? r1(ix.v2) : ix.y1.value,
+        rate: isY2 ? r1(ix.r2) : ix.y1.rate,
+        hasMissing: isY2 ? ix.missing : undefined,
+        subs: ix.subs.map((s) => ({
+          name: s.name, type: s.type, weight: s.weight, unit: s.unit,
+          target: isY2 ? s.targets.y2 : s.targets.y1,
+          value: isY2 ? (s.v2 === null ? null : r1(s.v2)) : s.y1.value,
+          rate: isY2 ? r1(s.r2) : s.y1.rate,
+          flag: isY2 ? (s.v2 === null ? '미입력' : s.y2.flag || '확정') : undefined,
+          note: isY2 ? P.compNote(s) : s.y1.note,
+          owner: s.y2.owner,
+          lastYearRate: isY2 ? s.y1.rate : undefined
+        }))
+      })),
+      openIssues: d.issues.filter((i) => i.scope === P.state.view && !i.done).map((i) => ({ level: i.level, title: i.title, desc: i.desc, owner: i.owner })),
+      schedule: isY2 ? d.schedule.map((s) => ({ title: s.title, date: s.date || '미정', owner: s.owner })) : undefined
+    };
+  }
+
+  // ---------- 화면 ----------
+  const viewKey = () => P.state.view;
+  const stamp = (iso) => (iso || '').replace('T', ' ').slice(0, 16);
+
+  function paint() {
+    const d = P.state.data;
+    const isY2 = P.state.view === 'y2';
+    $('#reportMeta').textContent = (isY2 ? `2차년도('26) ${d.meta.asOfLabel} 진척 현황` : "1차년도('25) 성과 달성 현황") + `, 데이터 v${d.version}`;
+    document.querySelectorAll('[data-rtab]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.rtab === r.tab)));
+    const gen = $('#reportGen');
+    gen.hidden = !(r.tab === 'ai' && r.ai);
+    $('#reportNote').textContent = r.tab === 'auto' ? '입력된 수치로 즉시 만든 요약입니다.' :
+      (r.ai ? `${r.model} 모델이 작성합니다. 수치는 반드시 원자료와 대조하세요.` : '');
+    const note = $('#reportNote');
+    if (r.tab === 'ai' && r.ai && isLocal()) note.insertAdjacentHTML('beforeend', ' <button type="button" class="btn-link" data-clearkey="1">API 키 삭제</button>');
+
+    if (r.tab === 'auto') {
+      r.autoText = autoReport();
+      r.shownText = r.autoText;
+      body.innerHTML = mdToHtml(r.autoText);
+      const n = new Date(); const p2 = (x) => String(x).padStart(2, '0');
+      $('#reportStamp').textContent = `작성 ${n.getFullYear()}.${p2(n.getMonth() + 1)}.${p2(n.getDate())} ${p2(n.getHours())}:${p2(n.getMinutes())} (자동)`;
+      return;
+    }
+    if (!r.ai) {
+      r.shownText = '';
+      body.innerHTML = isLocal()
+        ? `<div class="report-empty"><p>AI 요약을 쓰려면 Claude API 키가 필요합니다.<br>키는 이 PC의 이 브라우저에만 저장되며, 요약할 때 Anthropic API로 직접 전송됩니다.</p>
+            <label class="field" style="width:min(420px,100%);text-align:left"><span>Claude API 키</span><input type="password" id="apiKeyInput" autocomplete="off" placeholder="sk-ant-..."></label>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center"><button type="button" class="btn-primary" data-savekey="1">키 저장</button><button type="button" class="btn-line" data-rtab="auto">자동 요약 보기</button></div>
+            <p style="font-size:13px">공용 PC에서는 키를 저장하지 마세요. 키는 console.anthropic.com에서 발급합니다.</p></div>`
+        : `<div class="report-empty"><p>AI 요약이 연결되어 있지 않습니다.<br>${r.edge ? '관리자가 Netlify 환경변수 <strong>ANTHROPIC_API_KEY</strong>를 설정하면 사용할 수 있습니다.' : '서버 폴더의 config.json에 <strong>anthropic_api_key</strong>를 입력하고 서버를 다시 실행하면 사용할 수 있습니다.'}</p>
+            <button type="button" class="btn-line" data-rtab="auto">자동 요약 보기</button></div>`;
+      $('#reportStamp').textContent = '';
+      return;
+    }
+    if (r.busy) {
+      body.innerHTML = '<div class="report-empty"><div class="spinner" aria-hidden="true"></div><p>AI가 현황을 요약하고 있습니다. 보통 10~30초 걸립니다.</p></div>';
+      gen.disabled = true;
+      return;
+    }
+    gen.disabled = false;
+    const cached = r.cached[viewKey()];
+    if (!cached) {
+      r.shownText = '';
+      gen.textContent = 'AI 요약 생성';
+      body.innerHTML = `<div class="report-empty"><p>아직 생성된 AI 요약이 없습니다.</p><button type="button" class="btn-primary" data-gen="1">AI 요약 생성</button></div>`;
+      $('#reportStamp').textContent = '';
+      return;
+    }
+    gen.textContent = '다시 생성';
+    r.shownText = cached.text;
+    const stale = cached.version !== d.version;
+    body.innerHTML = mdToHtml(cached.text) + (stale ? `<p class="report-warn">이 요약은 데이터 v${P.esc(cached.version)} 기준입니다. 이후 실적이 바뀌었으니 '다시 생성'을 눌러 최신 내용으로 갱신하세요.</p>` : '');
+    $('#reportStamp').textContent = `생성 ${stamp(cached.generatedAt).replace(/-/g, '.')} · ${cached.by}`;
+  }
+
+  async function loadMeta() {
+    if (isLocal()) {
+      r.ai = !!localStorage.getItem(LS_KEY);
+      r.model = localStorage.getItem(LS_MODEL) || DEFAULT_MODEL;
+      try { r.cached = JSON.parse(localStorage.getItem(LS_SUM) || '{}'); } catch (e) { r.cached = {}; }
+      return;
+    }
+    try {
+      const res = await fetch('/api/summary', { cache: 'no-store' });
+      const j = await res.json();
+      r.ai = !!j.ai;
+      r.edge = !!j.edge;
+      r.model = j.model || '';
+      r.cached = j.cached || {};
+    } catch (e) {
+      r.ai = false;
+    }
+  }
+
+  async function generate() {
+    if (r.busy) return;
+    const editor = localStorage.getItem('pms.editor') || window.prompt('요청자 이름을 입력하세요.') || '';
+    if (!editor) return;
+    localStorage.setItem('pms.editor', editor);
+    r.busy = true;
+    paint();
+    if (isLocal()) {
+      try {
+        const res = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+            'x-api-key': localStorage.getItem(LS_KEY) || '',
+            'anthropic-version': '2023-06-01',
+            'anthropic-dangerous-direct-browser-access': 'true'
+          },
+          body: JSON.stringify({
+            model: r.model, max_tokens: 2000, system: SYSTEM_PROMPT,
+            messages: [{ role: 'user', content: '다음은 성과관리 시스템의 현재 데이터(JSON)입니다. 형식에 맞춰 요약 보고서를 작성해 주세요.\n\n' + JSON.stringify(aiInput()) }]
+          })
+        });
+        const j = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          const m = (j.error && j.error.message) || '';
+          throw new Error(res.status === 401 ? 'API 키가 올바르지 않습니다. 키를 삭제하고 다시 입력하세요.' : `AI 서비스 오류(${res.status}) ${m}`.trim());
+        }
+        const text = (j.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('').trim();
+        if (!text) throw new Error('AI가 빈 응답을 보냈습니다. 다시 시도해 주세요.');
+        const n = new Date();
+        const p2 = (x) => String(x).padStart(2, '0');
+        r.cached[viewKey()] = { text, version: P.state.data.version, generatedAt: `${n.getFullYear()}-${p2(n.getMonth() + 1)}-${p2(n.getDate())}T${p2(n.getHours())}:${p2(n.getMinutes())}`, by: editor, model: r.model };
+        try { localStorage.setItem(LS_SUM, JSON.stringify(r.cached)); } catch (e) { /* 저장 공간 부족 시 무시 */ }
+        P.toast('AI 요약을 만들었습니다.');
+      } catch (e) {
+        P.toast(e.message === 'Failed to fetch' ? 'AI 서비스에 연결하지 못했습니다. 인터넷 연결을 확인하세요.' : e.message);
+      } finally {
+        r.busy = false;
+        paint();
+      }
+      return;
+    }
+    if (r.edge) {
+      try {
+        const gen = await fetch('/api/ai-summary', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ input: aiInput() }) });
+        const g = await gen.json().catch(() => ({}));
+        if (!gen.ok) throw new Error(g.error || 'AI 요약을 만들지 못했습니다.');
+        const saveRes = await fetch('/api/summary', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ view: viewKey(), version: P.state.data.version, editor, text: g.text, model: g.model }) });
+        const entry = await saveRes.json().catch(() => ({}));
+        r.cached[viewKey()] = saveRes.ok ? entry : { text: g.text, version: P.state.data.version, generatedAt: new Date().toISOString(), by: editor, model: g.model };
+        P.toast('AI 요약을 만들었습니다. 다른 사용자도 같은 요약을 볼 수 있습니다.');
+      } catch (e) {
+        P.toast(e.message === 'Failed to fetch' ? 'AI 서비스에 연결하지 못했습니다.' : e.message);
+      } finally {
+        r.busy = false;
+        paint();
+      }
+      return;
+    }
+    try {
+      const headers = { 'Content-Type': 'application/json' };
+      const key = sessionStorage.getItem('pms.editKey');
+      if (key) headers['X-Edit-Key'] = key;
+      let res = await fetch('/api/summary', { method: 'POST', headers, body: JSON.stringify({ view: viewKey(), version: P.state.data.version, editor, input: aiInput() }) });
+      if (res.status === 401) {
+        const k = window.prompt('편집 비밀번호를 입력하세요.');
+        if (!k) throw new Error('비밀번호가 없어 요약을 만들지 않았습니다.');
+        sessionStorage.setItem('pms.editKey', k);
+        P.state.editKey = k;
+        headers['X-Edit-Key'] = k;
+        res = await fetch('/api/summary', { method: 'POST', headers, body: JSON.stringify({ view: viewKey(), version: P.state.data.version, editor, input: aiInput() }) });
+      }
+      const j = await res.json();
+      if (!res.ok) throw new Error(j.error || 'AI 요약을 만들지 못했습니다.');
+      r.cached[viewKey()] = j;
+      P.toast('AI 요약을 만들었습니다. 다른 사용자도 같은 요약을 볼 수 있습니다.');
+    } catch (e) {
+      P.toast(e.message);
+    } finally {
+      r.busy = false;
+      paint();
+    }
+  }
+
+  function printReport() {
+    if (!r.shownText) { P.toast('인쇄할 요약이 없습니다.'); return; }
+    const d = P.state.data;
+    const w = window.open('', '_blank');
+    if (!w) { P.toast('팝업이 차단되어 인쇄 창을 열지 못했습니다.'); return; }
+    w.document.write(`<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>자율성과지표 요약 보고서 | 경북과학대학교</title>
+      <style>body{font-family:'IBM Plex Sans KR','Malgun Gothic',sans-serif;max-width:720px;margin:32px auto;padding:0 24px;color:#1A2233;line-height:1.7;font-size:14px}
+      h1{font-size:22px;margin:0 0 4px}.m{color:#4A5568;font-size:13px;margin:0 0 20px}h3{font-size:16px;margin:20px 0 6px;border-bottom:2px solid #F5B700;display:inline-block}ul{padding-left:20px}</style></head>
+      <body><h1>${P.esc(P.univName(d))} 전문대학 혁신지원사업 자율성과지표 요약 보고서</h1>
+      <p class="m">${P.esc($('#reportMeta').textContent)} · ${P.esc($('#reportStamp').textContent)}</p>${mdToHtml(r.shownText)}</body></html>`);
+    w.document.close();
+    w.focus();
+    setTimeout(() => w.print(), 300);
+  }
+
+  // ---------- 이벤트 ----------
+  $('#reportBtn').addEventListener('click', async () => {
+    if (!P.state.data) return;
+    await loadMeta();
+    r.tab = r.ai ? 'ai' : 'auto';
+    paint();
+    dlg.showModal();
+  });
+  dlg.addEventListener('click', (e) => {
+    const t = e.target.closest('[data-rtab]');
+    if (t) { r.tab = t.dataset.rtab; paint(); return; }
+    if (e.target.closest('[data-gen]')) generate();
+    if (e.target.closest('[data-savekey]')) {
+      const v = ($('#apiKeyInput').value || '').trim();
+      if (!v) { $('#apiKeyInput').focus(); return; }
+      localStorage.setItem(LS_KEY, v);
+      r.ai = true;
+      paint();
+      P.toast('API 키를 이 브라우저에 저장했습니다.');
+    }
+    if (e.target.closest('[data-clearkey]')) {
+      localStorage.removeItem(LS_KEY);
+      r.ai = false;
+      paint();
+      P.toast('API 키를 삭제했습니다.');
+    }
+  });
+  $('#reportGen').addEventListener('click', generate);
+  $('#reportCopy').addEventListener('click', async () => {
+    if (!r.shownText) { P.toast('복사할 요약이 없습니다.'); return; }
+    const plain = r.shownText.replace(/\*\*(.+?)\*\*/g, '$1').replace(/^##\s+/gm, '■ ').replace(/^-\s+/gm, '  · ');
+    try { await navigator.clipboard.writeText(plain); P.toast('요약을 복사했습니다.'); }
+    catch (e) {
+      const ta = document.createElement('textarea');
+      ta.value = plain; dlg.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); P.toast('요약을 복사했습니다.'); } catch (x) { P.toast('복사하지 못했습니다.'); }
+      ta.remove();
+    }
+  });
+  $('#reportPrint').addEventListener('click', printReport);
+  $('#reportClose').addEventListener('click', () => dlg.close());
+  $('#reportOk').addEventListener('click', () => dlg.close());
+})();
+
+</script>
+</body>
+</html>

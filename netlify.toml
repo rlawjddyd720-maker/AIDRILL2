@@ -1,0 +1,18 @@
+# Netlify 배포 설정
+[build]
+  command = "node scripts/build.mjs"
+  publish = "public"
+  functions = "netlify/functions"
+  edge_functions = "netlify/edge-functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# 검색엔진 노출 방지 및 기본 보안 헤더
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "same-origin"
+    X-Frame-Options = "DENY"
